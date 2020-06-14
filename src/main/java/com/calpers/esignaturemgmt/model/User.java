@@ -1,7 +1,21 @@
 package com.calpers.esignaturemgmt.model;
 
-import javax.persistence.*;
 import java.util.Collection;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "email"))
@@ -15,6 +29,16 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+    @Getter @Setter
+    private String organization;
+    @Getter @Setter
+    private String preferredName;
+    @Getter @Setter
+    private String contactNo;
+    @Getter @Setter
+    private String accountStatus;
+    @Getter @Setter
+    private boolean signStatus;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
