@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login page</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body>
+	<header>
+		<div class="row">
+		  <div class="logo-row">
+		  	<a href="@{/}">
+			<img src="/dist/img/calpers_logo.png" alt="logo" class="logo">
+			</a>
+		  </div>
+		</div>
+	</header>
+	
+	<div class="container">
+		<div class = "left">
+		</div>
+		<div class = "right">
+		<div class="formBox">
+		<div class="form-container">
+		<img src="dist/img/login-small.png" class="bg">
+			<h4 class="text-center font-weight-bold">Sign in</h4>
+		<form action="@{/login}" method="post">
+			
+			  <div class="form-group">
+				<label for="username">Username</label>: <input type="text"
+							id="username" name="username" class="form-control"
+							autofocus="autofocus" placeholder="Username" />
+			  </div>
+			  
+			  <div class="form-group">
+				<label for="password">Password</label>: <input type="password"
+							id="password" name="password" class="form-control"
+							placeholder="Password" />
+			  </div>
+			  
+			  <input type="submit" name="login-submit" id="login-submit" class="btn btn-primary btn-lg btn-block" value="Log In" />
+			<a href="#">I forgot my password</a>
+			<a class="register" href="/registration" >Not a member yet?</a>
+		</form>
+		</div>
+		</div>
+		</div>
+		</div>
+</body>
+</html>  
+
