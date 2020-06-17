@@ -1345,6 +1345,9 @@ a:focus {
 .btn-group-vertical .btn.btn-flat:last-of-type {
   border-radius: 0;
 }
+.icheck {
+ padding: 6px 12px;
+}
 .icheck > label {
   padding-left: 0;
 }
@@ -3312,6 +3315,7 @@ table.text-center th {
 .register-box {
   width: 360px;
   margin: 7% auto;
+  margin-top: -40px;
 }
 @media (max-width: 768px) {
   .login-box,
