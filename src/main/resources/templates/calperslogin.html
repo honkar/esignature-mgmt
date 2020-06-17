@@ -11,15 +11,15 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-<link rel="stylesheet" type="text/css" href="/css/style.css">
 <link rel="stylesheet" type="text/css"
 	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+
 
 </head>
 
-<body>
-	<header>
+<body id="loginbody">
+	<header id="loginheader">
 		<div class="row">
 		  <div class="logo-row">
 		  	<a th:href="@{/}">
@@ -37,7 +37,7 @@
 		<img src="dist/img/login-small.png" class="bg">
 			<h3 class="text-center font-weight-bold">Sign in</h3>
 			
-		<form th:action="@{/registration}" method="post">
+		<form th:action="@{/login}" method="post">
 			<div th:if="${param.error}">
 					<div class="alert alert-danger">Invalid username or
 						password.</div>

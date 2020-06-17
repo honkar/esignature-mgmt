@@ -1,12 +1,12 @@
 h1 {color:red;}
 
-body {
+#loginbody {
     width: 90%;
     margin: 0 auto;
 	background: #f8f9fa;
 }
 
-header {
+#loginheader {
     margin-top: 20px;
     padding-bottom: 5px;
 }
@@ -29,14 +29,14 @@ header {
 	padding-left: 45%;
 }
 
-.container{
+#loginbody >.container{
 	width: 80%;
 	height: 550px;
 	border: 2px solid #fff;
 	box-shadow: 0 15px 40px rgba(0,0,0,.5);
 }
 
-.container .left{
+#loginbody > .container .left{
 	float: left;
 	width: 45%;
 	height: 100%;
@@ -45,7 +45,7 @@ header {
 	box-sizing: border-box;
 }
 
-.container .right{
+#loginbody > .container .right{
 	float: right;
 	width: 50%;
 	height: 400px;
