@@ -7,14 +7,18 @@
 
 <link rel="stylesheet" type="text/css"
 	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
-<header>
-<center>
-<img src="/img/calpers_logo.png">
-
-</center>
-</header> 
+	<header id="registerheader">
+		<div class="row">
+		  <div class="logo-row">
+		  	<a th:href="@{/}">
+			<img src="/dist/img/calpers_logo.png" alt="logo" class="col-12">
+			</a>
+		  </div>
+		</div>
+	</header>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Calpers | Registration Page</title>
@@ -41,7 +45,7 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition register-page">
+<body id="registerbody">
 <div class="register-box">
   <div class="register-logo">
     <a href="../../index2.html"><b></b></a>

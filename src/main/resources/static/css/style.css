@@ -6,14 +6,25 @@ html { overflow-y: hidden; }
 	background: #f8f9fa;
 }
 
+#registerbody {
+    width: 90%;
+    margin: 0 auto;
+	background: #f8f9fa;
+}
+
 #loginheader {
+    margin-top: 20px;
+    padding-bottom: 5px;
+}
+
+#registerheader {
     margin-top: 20px;
     padding-bottom: 5px;
 }
 
 .logo-row {
     width: 250px;
-    margin: 0 auto;
+    padding-left: 38%;
 }
 
 .logo {
@@ -32,6 +43,12 @@ html { overflow-y: hidden; }
 #loginbody >.container{
 	width: 80%;
 	height: 550px;
+	border: 2px solid #fff;
+	box-shadow: 0 15px 40px rgba(0,0,0,.5);
+}
+
+#registerbody >.registercontainer{
+	height: 5px;
 	border: 2px solid #fff;
 	box-shadow: 0 15px 40px rgba(0,0,0,.5);
 }
@@ -60,4 +77,8 @@ html { overflow-y: hidden; }
 .formBox
 {
 	width:100%;
+}
+
+.logout{
+	text-align: center;
 }
