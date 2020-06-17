@@ -41,6 +41,20 @@
 		<h2 style="align: center">Welcome User! You have been logged in
 			successfully....</h2>
 	</div>
+	
+	<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+    	<h3>Upload Signature </h3>
+    	
+		<form th:action=@{/upload} method="post">
+      	<input type="submit" name="submit" 
+									class="form-control btn btn-primary" value="Click Here" />
+      	
+     	</form> 
+     	</div>
+     </div>
+    </div>
 
 	<script type="text/javascript"
 		th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>

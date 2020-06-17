@@ -19,13 +19,13 @@ public class Signature {
 	@Getter @Setter
 	private String filename;
 	@Getter @Setter
-	private String type;
+	private int type;
 	@Getter @Setter
 	private int version;
 	@Getter @Setter
-	private String status;
+	private int status;
 	
-	public Signature(Long userId, String filename, String type, int version, String status) {
+	public Signature(Long userId, String filename, int type, int version, int status) {
 		super();
 		this.userId = userId;
 		this.filename = filename;
@@ -33,4 +33,54 @@ public class Signature {
 		this.version = version;
 		this.status = status;
 	}
+	
+	public Signature() {}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+        this.id = id;
+    }
+	
+	public Long getUserId() {
+		return id;
+	}
+	
+	public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getFileName() {
+        return filename;
+    }
+
+    public void setFileName(String fileName) {
+        this.filename = fileName;
+    }
+    
+    public int getType() {
+		return type;
+	}
+	
+	public void setType(int type) {
+        this.type = type;
+    }
+	
+	public int getVersion() {
+		return type;
+	}
+	
+	public void setVersion(int version) {
+        this.version = version;
+    }
+	
+	public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 }
