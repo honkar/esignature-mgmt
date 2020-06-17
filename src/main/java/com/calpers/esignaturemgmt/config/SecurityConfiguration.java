@@ -30,8 +30,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/webjars/**",
                             "/bower_components/**",
                             "/dist/**",
-                            "/plugins/**").permitAll()
                             "/plugins/**",
+                            "/confirm-account**").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()

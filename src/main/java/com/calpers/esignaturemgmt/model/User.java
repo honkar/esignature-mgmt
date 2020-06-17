@@ -29,15 +29,10 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-    @Getter @Setter
     private String organization;
-    @Getter @Setter
     private String preferredName;
-    @Getter @Setter
     private String contactNo;
-    @Getter @Setter
-    private String accountStatus;
-    @Getter @Setter
+    private boolean enabled;
     private boolean signStatus;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -114,8 +109,49 @@ public class User {
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
+    
 
-    @Override
+    public String getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(String organization) {
+		this.organization = organization;
+	}
+
+	public String getPreferredName() {
+		return preferredName;
+	}
+
+	public void setPreferredName(String preferredName) {
+		this.preferredName = preferredName;
+	}
+
+	public String getContactNo() {
+		return contactNo;
+	}
+
+	public void setContactNo(String contactNo) {
+		this.contactNo = contactNo;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public boolean isSignStatus() {
+		return signStatus;
+	}
+
+	public void setSignStatus(boolean signStatus) {
+		this.signStatus = signStatus;
+	}
+
+	@Override
     public String toString() {
         return "User{" +
                 "id=" + id +
