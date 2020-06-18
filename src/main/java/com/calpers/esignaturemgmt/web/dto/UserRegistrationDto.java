@@ -8,7 +8,7 @@ import com.calpers.esignaturemgmt.constraint.FieldMatch;
 
 @FieldMatch.List({
         @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match"),
-        //@FieldMatch(first = "email", second = "confirmEmail", message = "The email fields must match")
+        @FieldMatch(first = "email", second = "confirmEmail", message = "The email fields must match")
 })
 public class UserRegistrationDto {
 
@@ -33,8 +33,12 @@ public class UserRegistrationDto {
     @Email
     @NotEmpty
     private String email;
+    
+    @Email
+    @NotEmpty
+    private String confirmEmail;
 
-    @AssertTrue
+	@AssertTrue
     private Boolean terms;
 
     public String getFirstName() {
@@ -100,6 +104,12 @@ public class UserRegistrationDto {
 	public void setOrganization(String organization) {
 		this.organization = organization;
 	}
-    
+	public String getConfirmEmail() {
+		return confirmEmail;
+	}
+
+	public void setConfirmEmail(String confirmEmail) {
+		this.confirmEmail = confirmEmail;
+	}
 
 }
