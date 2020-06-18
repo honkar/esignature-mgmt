@@ -14,7 +14,16 @@
 <title>Registration</title>
 </head>
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+<header id="registerheader">
+		<div class="row">
+		  <div class="logo-row">
+		  	<a th:href="@{/}">
+			<img src="/dist/img/calpers_logo.png" alt="logo" class="col-12">
+			</a>
+		  </div>
+		</div>
+	</header>
+	<!-- <nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
@@ -26,19 +35,19 @@
 				</button>
 				<a class="navbar-brand" href="/" th:href="@{/}">Registration and
 					Login Module</a>
-			</div>
-			<div id="navbar" class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
-				</ul>
+			</div>-->
+			<!-- <div id="navbar" class="collapse navbar-collapse"> 
+				<ul class="nav navbar-nav"> -->
+					<li sec:authorize="isAuthenticated()"><a class="logout" th:href="@{/logout}"><p style="text-align:center"><h3>Logout</h3></a></li>
+				<!-- </ul>
 			</div>
 		</div>
 	</nav>
-
+ -->
 	<br>
 	<br>
 	<div class="container">
-		<h2 style="align: center">Welcome User! You have been logged in
+		<h2 style="text-align: center">Welcome User! You have been logged in
 			successfully....</h2>
 	</div>
 	
