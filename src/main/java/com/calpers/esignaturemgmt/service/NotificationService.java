@@ -30,7 +30,7 @@ public class NotificationService {
         confirmationTokenRepository.save(confirmationToken);
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setTo(user.getEmail());
-		mail.setFrom("harshithaonkar@gmail.com");
+		mail.setFrom("noreply.esignmgmt@gmail.com");
 		mail.setSubject("CalPERS eSignature Management : Account Activation");
 		mail.setText("To confirm your account, please click here : "
 	            +"http://localhost:8080/confirm-account?token="+confirmationToken.getConfirmationToken());
