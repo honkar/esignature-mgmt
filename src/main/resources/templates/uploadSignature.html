@@ -10,25 +10,49 @@
 <link
 	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"
 	rel="stylesheet">
-<link href="/css/jquery.signature.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+<style>
+.wrapper {
+	position: relative;
+	width: 400px;
+	height: 200px;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+img {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.signature-pad {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: inherit;
+	height: 200px;
+	border: black;
+	border-style: solid;
+}
+</style>
 
 <title>Signature Capture</title>
 </head>
-<header id="registerheader">
-		<div class="row">
-		  <div class="logo-row">
-		  <center>
-		  	<a th:href="@{/}">
-			<img src="/dist/img/calpers_logo.png" alt="logo" class="col-12">
-			</a>
-			</center>
-		  </div>
-		</div>
-</header>
-
 
 <body>
 	<div class="container">
+		<div class="row">
+			<div class="logo-row">
+				<center>
+					<a th:href="@{/}"> <img src="/dist/img/calpers_logo.png"
+						alt="logo" class="col-12">
+					</a>
+				</center>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<h2>Please upload or draw your signature</h2>
@@ -44,18 +68,21 @@
 			</div>
 		</div>
 		<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3" >
-				<h3 style="text-align:center">OR</h3>
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<h3 style="text-align: center">OR</h3>
+				</div>
 			</div>
-			</div>
-		</div>	
+		</div>
 		<div class="row signpad-padding">
 			<div class="col-md-6 col-md-offset-3">
-				<div id="sig"></div>
-				<p style="clear: both;">
-					<button id="clear">Clear</button>
+				<div class="wrapper">
+					<canvas id="signature-pad" class="signature-pad" width=400
+						height=200></canvas>
+				</div>
+				<p>
 					<button id="save">Save</button>
+					<button id="clear">Clear</button>
 				</p>
 			</div>
 		</div>
@@ -64,24 +91,32 @@
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="/js/jquery.signature.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
 	<script>
-		$(function() {
-			var sig = $('#sig').signature();
-			$('#disable').click(function() {
-				var disable = $(this).text() === 'Disable';
-				$(this).text(disable ? 'Enable' : 'Disable');
-				sig.signature(disable ? 'disable' : 'enable');
+		var signaturePad = new SignaturePad(document
+				.getElementById('signature-pad'), {
+			backgroundColor : 'rgba(255, 255, 255, 0)',
+			penColor : 'rgb(0, 0, 0)'
+		});
+		var saveButton = document.getElementById('save');
+		var cancelButton = document.getElementById('clear');
+
+		saveButton.addEventListener('click', function(event) {
+			event.preventDefault();
+			var data = signaturePad.toDataURL('image/png');
+			$.ajax({
+				type : "post",
+				url : "/hello",
+				data : data,
+				cache : false,
+				success : function(data) {
+				}
 			});
-			$('#clear').click(function() {
-				sig.signature('clear');
-			});
-			$('#json').click(function() {
-				alert(sig.signature('toJSON'));
-			});
-			$('#svg').click(function() {
-				alert(sig.signature('toSVG'));
-			});
+		});
+
+		cancelButton.addEventListener('click', function(event) {
+			signaturePad.clear();
 		});
 	</script>
 </body>
