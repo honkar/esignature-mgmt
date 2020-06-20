@@ -47,7 +47,7 @@ public class UserRegistrationController {
 
 	@RequestMapping(value="/registration", method= {RequestMethod.GET})
 	public String showRegistrationForm(Model model) {
-		return "registration";
+		return "signup";
 	}
 
 	@RequestMapping(value="/registration", method= {RequestMethod.POST})
@@ -60,7 +60,7 @@ public class UserRegistrationController {
 		}
 
 		if (result.hasErrors()) {
-			return "registration";
+			return "signup";
 		}
 
 		User registeredUser = userService.save(userDto);
