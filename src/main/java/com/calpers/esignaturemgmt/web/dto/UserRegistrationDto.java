@@ -12,25 +12,25 @@ import com.calpers.esignaturemgmt.constraint.FieldMatch;
 })
 public class UserRegistrationDto {
 
-    @NotEmpty
+    @NotEmpty (message = "Please enter first name")
     private String firstName;
 
-    @NotEmpty
+    @NotEmpty (message = "Please enter last name")
     private String lastName;
 
-    @NotEmpty
+    @NotEmpty (message = "Please enter password")
     private String password;
 
-    @NotEmpty
+    @NotEmpty (message = "Please enter confirm password")
     private String confirmPassword;
     
-    @NotEmpty
+    @NotEmpty (message = "Please enter contact no")
     private String contactNo;
     
-    @NotEmpty
+    @NotEmpty (message = "Please enter organization")
     private String organization;
 
-    @Email
+    @Email (message = "Please enter a valid e-mail address")
     @NotEmpty
     private String email;
     
@@ -38,7 +38,7 @@ public class UserRegistrationDto {
 //    @NotEmpty
 //    private String confirmEmail;
 
-	@AssertTrue
+	@AssertTrue (message = "Please agree to the terms and conditions")
     private Boolean terms;
 
     public String getFirstName() {
