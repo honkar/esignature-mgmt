@@ -20,8 +20,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
+        http.csrf().disable().authorizeRequests()
                     .antMatchers(
                             "/registration**",
                             "/js/**",
@@ -31,7 +30,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/bower_components/**",
                             "/dist/**",
                             "/plugins/**",
-                            "/confirm-account**").permitAll()
+                            "/confirm-account**",
+                            "/saveSignature**").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
