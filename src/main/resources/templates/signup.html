@@ -60,8 +60,8 @@ h1 {
 						th:field="*{firstName}"> <span
 						class="glyphicon glyphicon-user form-control-feedback"></span>
 					<p class="error-message"
-						th:each="error : ${#fields.errors('firstName')}" th:text="${error}">Validation
-						error</p>
+						th:each="error : ${#fields.errors('firstName')}"
+						th:text="${error}">Validation error</p>
 				</div>
 				<div class="form-group has-feedback"
 					th:classappend="${#fields.hasErrors('lastName')}? 'has-error':''">
@@ -125,12 +125,11 @@ h1 {
 					<div class="form-group"
 						th:classappend="${#fields.hasErrors('terms')}? 'has-error':''">
 						<div class="checkbox icheck">
-							<label> <input type="checkbox"> I agree to the
-								Terms and Conditions
+							<label> <input type="checkbox"> <span style="padding-left: 5px;">I
+									agree to the <a data-toggle="modal"
+									data-target="#modal-default">Terms and Conditions</a>
+							</span>
 							</label>
-							<p class="error-message"
-								th:each="error : ${#fields.errors('confirmPassword')}"
-								th:text="${error}">Validation error</p>
 						</div>
 					</div>
 
@@ -144,6 +143,59 @@ h1 {
 			</form>
 		</div>
 	</div>
+	<div class="modal fade" id="modal-default">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Terms & Conditions</h4>
+				</div>
+				<div class="modal-body" style="text-align: justify;">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+						Vestibulum suscipit eget metus non cursus. Praesent sollicitudin
+						leo elit, non lobortis nunc vehicula vitae. Aenean in lacinia ex.
+						Aenean vitae arcu enim. Aliquam ac urna sit amet erat cursus
+						interdum. Integer vehicula augue accumsan orci efficitur varius.
+						Praesent tempus lorem dui, id faucibus augue congue eu. Lorem
+						ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+						ullamcorper ullamcorper diam, non maximus eros consequat ut.
+						Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+						posuere cubilia curae; Duis scelerisque sit amet odio vel
+						dignissim.</p>
+					<p>Morbi nec leo ut justo consequat consequat. Phasellus
+						aliquet lectus facilisis, rutrum libero quis, efficitur leo. Cras
+						vitae vehicula diam. Ut hendrerit mi ac ligula vehicula eleifend.
+						Praesent justo erat, tincidunt vel accumsan id, vulputate vitae
+						dui. In hac habitasse platea dictumst. Duis est nisl, pretium eu
+						turpis sed, egestas sollicitudin lectus. Cras sodales nunc dui, a
+						tincidunt elit aliquet et. Nam sagittis diam dictum, malesuada ex
+						egestas, eleifend eros. In sollicitudin sit amet metus a
+						consectetur. Vivamus neque nulla, ultrices sed lacinia lobortis,
+						ullamcorper vitae lectus.</p>
+					<p>Quisque finibus pharetra elit a consequat. Nullam finibus
+						eros non odio malesuada, vitae condimentum ante ultrices. Aenean
+						eget felis a enim condimentum rutrum. In ultrices a mi non
+						fringilla. Maecenas hendrerit, sem sed sagittis fringilla, est sem
+						aliquam velit, at pretium enim ante et ipsum. Praesent vel neque
+						est. Praesent feugiat, tellus non sagittis tempor, nunc lacus
+						feugiat urna, et eleifend felis risus eu mauris. Etiam sagittis
+						tristique pharetra. Etiam non arcu vehicula, vehicula lorem ut,
+						pulvinar orci. Mauris egestas felis id dui finibus consequat.
+						Morbi facilisis tellus vitae molestie convallis.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default pull-left"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
 	<!-- jQuery 3 -->
 	<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap 3.3.7 -->
