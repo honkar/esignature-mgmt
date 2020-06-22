@@ -104,11 +104,16 @@ img {
 
 		saveButton.addEventListener('click', function(event) {
 			event.preventDefault();
-			var data = signaturePad.toDataURL('image/png');
+			var sign = signaturePad.toDataURL('image/png');
+			var data ={
+					signImg : sign
+			};
 			$.ajax({
-				type : "post",
-				url : "/hello",
-				data : data,
+				type : "POST",
+				data : JSON.stringify(data),
+				contentType : "application/json",
+				dataType : 'json',
+			    url : "saveSignature",
 				cache : false,
 				success : function(data) {
 				}
