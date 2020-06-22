@@ -1,74 +1,223 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<link rel="icon" href="/img/cal_logo_small.png" type="image/icon type">
+<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="/css/dashboard.css">
+<style>
+.wrapper {
+	position: relative;
+	width: 400px;
+	height: 200px;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 
-<link rel="stylesheet" type="text/css"
-	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
-	<link rel="stylesheet" type="text/css"
-	href="/css/style.css" />
+img {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
 
-<title>Registration</title>
+.signature-pad {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: inherit;
+	height: 200px;
+	border: black;
+	border-style: solid;
+}
+</style>
+
+<title>Signature Capture</title>
 </head>
-<body>
-<header id="registerheader">
-		<div class="row">
-		  <div class="logo-row">
-		  	<a th:href="@{/}">
-			<img src="/dist/img/calpers_logo.png" alt="logo" class="col-12">
-			</a>
-		  </div>
-		</div>
-	</header>
-	<!-- <nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="/" th:href="@{/}">Registration and
-					Login Module</a>
-			</div>-->
-			<!-- <div id="navbar" class="collapse navbar-collapse"> 
-				<ul class="nav navbar-nav"> -->
-					<li sec:authorize="isAuthenticated()"><a class="logout" th:href="@{/logout}"><p style="text-align:center"><h3>Logout</h3></a></li>
-				<!-- </ul>
-			</div>
-		</div>
-	</nav>
- -->
-	<br>
-	<br>
-	<div class="container">
-		<h2 style="text-align: center">Welcome User! You have been logged in
-			successfully....</h2>
-	</div>
+
+<body class="sb-nav-fixed">
+	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <a class="navbar-brand" href="#"><img src="/dist/img/calpers_logo.png" style="height:100%; width:auto;" /></a>
+            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+     </nav>
+     <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading" ></div>
+                            <a class="nav-link" href="#" >
+                                <div class="sb-nav-link-icon" style="color:white"><i class="fas fa-home"></i></div>
+                                <span style="color:white">Home</span>
+                            </a>
+                            <a class="nav-link" href="#">
+                                <div class="sb-nav-link-icon" style="color:white"><i class="fas fa-user"></i></div>
+                                <span style="color:white">View/Edit Profile</span>
+                            </a>
+                            <a class="nav-link" href="#">
+                                <div class="sb-nav-link-icon" style="color:white"><i class="fas fa-phone"></i></div>
+                                <span style="color:white">Change password</span>
+                            </a>
+                            
+                            <li sec:authorize="isAuthenticated()">
+                            <a class="nav-link" href="/logout">                            	
+                                <div class="sb-nav-link-icon" style="color:white"><i class="fas fa-power-off"></i></div>
+                               <span style="color:white">Logout</span>        
+                            </a>
+                            </li>
+                 
+                            
+                        </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid">
+                        <h1 class="mt-4">Home</h1>
+                        
+
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Profile</h5>
+
+                            </div>
+                            <div class="card-body">
+                                <form>
+                   
+								<!-- --------------------------------------------------------- -->
+								<div id="tabs">
+										<div id="nav" class="form-group">
+											<label class="form-label">Hello %User%, do you want to draw or upload your signature?</label><br>
+											<input type="radio"  name="tab" value="pkfrom" class="div1" />
+											  <label>DRAW</label><br>
+											  <input type="radio"  name="tab" value="pkfrom" class="div2" />
+											  <label>UPLOAD</label><br>
+										</div>
+									
+								<!-- --------------------------------------------------- -->
+								<div id="div1" class="hide">
+								<div class="row signpad-padding">
+									<div class="col-md-6 col-md-offset-3">
+										<div class="wrapper">
+											<canvas id="signature-pad" class="signature-pad" width=400
+												height=200></canvas>
+										</div>
+										<p>
+											<button id="save">Save</button>
+											<button id="clear">Clear</button>
+										</p>
+									</div>
+								</div>	
+								</div>
+								<!-- ----------------------------------------------------------- -->
+								<div id="div2" class="hide">
+								<div class="row">
+									<div class="col-md-6 col-md-offset-3">
+										<form th:action=@{/uploadSignatureCall} method="post"
+											enctype="multipart/form-data">
+											<h1></h1>
+											<input type="file" name="signatureFile">
+											<h1></h1>
+											<input type="submit" name="submitFile"
+												class="form-control btn btn-primary" value="Upload Signature" />
+										</form>
+									</div>
+								</div>
+								</div>
+								<!-- -------------------------------------------------------------- -->
+                                    <div class="form-group">
+                                        <label class="form-label">Please provide a preferred name with your signature.</label>
+                                        <input type="text" class="form-control" placeholder="E-Signature Name">
+                                    </div>							
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script> 
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+       	<script src="/js/scripts.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+		<script type="text/javascript">
+		(function(){
+	      var tabs = document.getElementById('tabs');
+	      var nav = tabs.getElementsByTagName('input');
 	
-	<div class="container">
-	<div class="row">
-		<div class="col-md-6 col-md-offset-3">
-    	<h3>Upload Signature </h3>
-    	
-		<form th:action=@{/upload} method="post">
-      	<input type="submit" name="submit" 
-									class="form-control btn btn-primary" value="Click Here" />
-      	
-     	</form> 
-     	</div>
-     </div>
-    </div>
+	      /*
+	      * Hide all tabs
+	      */
+	      function hideTabs(){
+	        var tab = tabs.getElementsByTagName('div');
+	        for(var i=0;i<=nav.length;i++){
+	          if(tab[i].className == 'tab'){
+	            tab[i].className = tab[i].className + ' hide';
+	          }
+	        }
+	      }
+		  
+		  function showTab(tab){
+	        document.getElementById(tab).className = 'tab'
+	      }
+	
+	      hideTabs(); /* hide tabs on load */
+	
+	      /*
+	      * Add click events
+	      */
+	      for(var i=0;i<nav.length;i++){
+	        nav[i].onclick = function(){
+	          hideTabs();
+	          showTab(this.className);
+	        }
+	      }
+		})();
+		
+		var signaturePad = new SignaturePad(document
+				.getElementById('signature-pad'), {
+			backgroundColor : 'rgba(255, 255, 255, 0)',
+			penColor : 'rgb(0, 0, 0)'
+		});
+		var saveButton = document.getElementById('save');
+		var cancelButton = document.getElementById('clear');
 
-	<script type="text/javascript"
-		th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
-	<script type="text/javascript"
-		th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+		saveButton.addEventListener('click', function(event) {
+			event.preventDefault();
+			var data = signaturePad.toDataURL('image/png');
+			$.ajax({
+				type : "post",
+				url : "/hello",
+				data : data,
+				cache : false,
+				success : function(data) {
+				}
+			});
+		});
 
+		cancelButton.addEventListener('click', function(event) {
+			signaturePad.clear();
+		});
+		</script>
+        
+            
+     <!-- ----------------------------------------------------------------------------------------------------------------------------------------------- -->       
 </body>
 </html>
