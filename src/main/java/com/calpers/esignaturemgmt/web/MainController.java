@@ -25,7 +25,7 @@ public class MainController {
     
     @RequestMapping("/upload")
 	public String UploadSignature(Model model) {
-		return "uploadSignature";
+		return "signature_v2";
 	}
 
 }
