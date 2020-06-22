@@ -71,7 +71,7 @@ public class UserRegistrationController {
 
 			logger.info("Error while sending email "+ e.getMessage());
 		}
-		return "redirect:/registration?success";
+		return "registerSuccess";
 	}
 	
 	  @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
