@@ -30,7 +30,6 @@ public class User {
     private String email;
     private String password;
     private String organization;
-    private String preferredName;
     private String contactNo;
     private boolean enabled;
     private boolean signStatus;
@@ -121,14 +120,6 @@ public class User {
 
 	public void setOrganization(String organization) {
 		this.organization = organization;
-	}
-
-	public String getPreferredName() {
-		return preferredName;
-	}
-
-	public void setPreferredName(String preferredName) {
-		this.preferredName = preferredName;
 	}
 
 	public String getContactNo() {

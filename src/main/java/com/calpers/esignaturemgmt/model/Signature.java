@@ -1,5 +1,7 @@
 package com.calpers.esignaturemgmt.model;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +26,10 @@ public class Signature {
 	private int version;
 	@Getter @Setter
 	private int status;
+	@Getter @Setter
+	private Timestamp uploadDate;
+	@Getter @Setter
+	private String preferredName;
 	
 	public Signature(Long userId, String filename, int type, int version, int status) {
 		super();
@@ -82,5 +88,21 @@ public class Signature {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+    
+    public String getPreferredName() {
+        return preferredName;
+    }
+
+    public void setPreferredName(String preferredName) {
+        this.preferredName = preferredName;
+    }
+    
+    public Timestamp getUploadDate() {
+        return uploadDate;
+    }
+
+    public void setUploadDate(Timestamp uploadDate) {
+        this.uploadDate = uploadDate;
     }
 }

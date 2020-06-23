@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.calpers.esignaturemgmt.helper.ImageDecoder;
+import com.calpers.esignaturemgmt.helper.RemoveBackground;
 import com.calpers.esignaturemgmt.service.SignatureService;
 
 @RestController
@@ -51,9 +52,12 @@ public class SignatureController {
 	@RequestMapping(value = "/saveSignature", method = RequestMethod.POST)
     public ResponseEntity<Object> saveSignature(@RequestBody String signImg) {
 		ImageDecoder imgDecoder = new ImageDecoder();
+		RemoveBackground remBackground = new RemoveBackground();
 		String str[] = signImg.split(",");
 		boolean uploadStatus = imgDecoder.decodeToImage(str[1]);
-		if(uploadStatus) {
+		
+		boolean removeBackgroundStatus = remBackground.removeBackground("testSign.png");
+		if(uploadStatus && removeBackgroundStatus) {
 			return new ResponseEntity<>("Success",HttpStatus.OK);
 		}
 		return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
