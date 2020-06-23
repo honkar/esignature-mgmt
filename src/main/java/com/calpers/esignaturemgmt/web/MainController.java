@@ -27,5 +27,10 @@ public class MainController {
 	public String UploadSignature(Model model) {
 		return "signature_v2";
 	}
+    
+    @RequestMapping("/profile")
+	public String profile() {
+		return "createview";
+	}
 
 }
