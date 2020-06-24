@@ -33,7 +33,7 @@ public class RemoveBackground {
 
 		    	BufferedImage transparent = imageToBufferedImage(image);
 
-		    	File out = new File(uploadDirectory, "testSign.png");
+		    	File out = new File(uploadDirectory, fileName);
 		    	ImageIO.write(transparent, "PNG", out);
 		    }
 	        status = true;

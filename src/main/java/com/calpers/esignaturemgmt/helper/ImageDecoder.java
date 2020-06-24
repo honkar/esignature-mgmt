@@ -8,12 +8,12 @@ import org.apache.commons.codec.binary.Base64;
 public class ImageDecoder {
 	public static String uploadDirectory = System.getProperty("user.dir")+"/uploads";
 
-	public static boolean decodeToImage(String imageString) {
+	public boolean decodeToImage(String imageString, String fileName) {
 		// decode Base64 String to image
 		FileOutputStream fos;
 		boolean status;
 		try {
-			fos = new FileOutputStream(uploadDirectory+"/testSign.png");
+			fos = new FileOutputStream(uploadDirectory+"/"+fileName);
 			byte byteArray[] = Base64.decodeBase64(imageString);
 			fos.write(byteArray);
 			fos.close();

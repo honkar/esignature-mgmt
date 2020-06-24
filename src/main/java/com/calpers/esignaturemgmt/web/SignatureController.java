@@ -1,6 +1,8 @@
 package com.calpers.esignaturemgmt.web;
 
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.calpers.esignaturemgmt.helper.ImageDecoder;
 import com.calpers.esignaturemgmt.helper.RemoveBackground;
+import com.calpers.esignaturemgmt.model.User;
 import com.calpers.esignaturemgmt.service.SignatureService;
 
 @RestController
@@ -28,6 +31,8 @@ public class SignatureController {
 	@Autowired
 	private SignatureService signatureService;
 	
+	@Autowired
+	private HttpSession session;
 	
 
 	/*@PostMapping("/uploadSignatureCall")
@@ -53,10 +58,37 @@ public class SignatureController {
     public ResponseEntity<Object> saveSignature(@RequestBody String signImg) {
 		ImageDecoder imgDecoder = new ImageDecoder();
 		RemoveBackground remBackground = new RemoveBackground();
+		User user = (User) session.getAttribute("User");
+		int signatureType = DRAW_SIGNATURE;
+		String fileName = "Signature_" + user.getId()+".png";
 		String str[] = signImg.split(",");
-		boolean uploadStatus = imgDecoder.decodeToImage(str[1]);
+		// Get upload type (upload/draw)
+		String uploadTypeString[] = str[2].split(":");
+		String uploadType = uploadTypeString[1];
+		uploadType = uploadType.replace("\"", "");
+		if (uploadType.contentEquals("upload")) {
+			signatureType = UPLOAD_SIGNATURE;
+		}
+		// Get preferred name if given
+		String preferredNameString[] = str[3].split(":");
+		String preferredName = preferredNameString[1];
+		preferredName = preferredNameString[1].replace("\"", "");
+		preferredName = preferredName.replace("}", "");
+		if (preferredName.isBlank()) {
+			preferredName = null;
+		}
 		
-		boolean removeBackgroundStatus = remBackground.removeBackground("testSign.png");
+		// Store signature to upload folder
+		boolean uploadStatus = imgDecoder.decodeToImage(str[1],fileName);
+		
+		// Remove background from signature 
+		boolean removeBackgroundStatus = remBackground.removeBackground(fileName);
+		
+		if(uploadStatus && removeBackgroundStatus) {
+			signatureService.saveDBSignature(fileName, signatureType, preferredName);
+		}
+		
+		
 		if(uploadStatus && removeBackgroundStatus) {
 			return new ResponseEntity<>("Success",HttpStatus.OK);
 		}

@@ -30,7 +30,7 @@ public class MainController {
     
     @RequestMapping("/profile")
 	public String profile() {
-		return "createview";
+		return "calpers_Viewprofile";
 	}
 
 }
