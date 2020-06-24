@@ -30,6 +30,9 @@
 	user-select: none;
 }
 
+.sidebar{
+padding-bottom: 2px;
+}
 img {
 	position: absolute;
 	left: 0;
@@ -76,25 +79,27 @@ img {
 					<div class="nav">
 						<div class="sb-sidenav-menu-heading"></div>
 						<a class="nav-link" href="#">
+						
 							<div class="sb-nav-link-icon" style="color: white">
 								<i class="fas fa-home"></i>
-							</div> <span style="color: white">Home</span>
+							</div> <span class="sidebar" style="color: white">Home</span>
 						</a> <a class="nav-link" href="/profile">
 							<div class="sb-nav-link-icon" style="color: white">
 								<i class="fas fa-user"></i>
-							</div> <span style="color: white">View/Edit Profile</span>
+							</div> <span class="sidebar" style="color: white; padding-left: 5px;">View/Edit Profile</span>
 						</a> <a class="nav-link" href="#">
 							<div class="sb-nav-link-icon" style="color: white">
 								<i class="glyphicon glyphicon-lock"></i>
-							</div> <span style="color: white">Change password</span>
+							</div> <span class="sidebar" style="color: white; padding-left: 4px;">Change password</span>
 						</a>
 
 						<li sec:authorize="isAuthenticated()"><a class="nav-link"
 							href="/logout">
-								<div class="sb-nav-link-icon" style="color: white">
+								<div class="sb-nav-link-icon" style="color: white; padding-left: 3px;">
 									<i class="fas fa-power-off"></i>
-								</div> <span style="color: white">Logout</span>
+								</div> <span class="sidebar" style="color: white; padding-left: 5px;">Logout</span>
 						</a></li>
+						
 
 
 					</div>
@@ -125,6 +130,11 @@ img {
 										id="uploadOpt" name="signOption" value="upload" class="div2" />
 									<label for="phone">Upload</label><br>
 								</div>
+								<div class="form-group">
+									<label class="form-label">Please provide a preferred
+										name with your signature.</label> <input type="text"
+										class="form-control" placeholder="E-Signature Name">
+								</div>
 
 								<!--   ------------------------------------------------------------------ -->
 								<div id="drawContainer" class="container" style="display: none;">
@@ -144,8 +154,9 @@ img {
 													height=200></canvas>
 											</div>
 											<p class="imgActionBtns">
-												<button id="save">Save</button>
-												<button id="clear">Clear</button>
+												
+												<button class= "btn btn-primary" id="save">Save</button>
+												<button class= "btn btn-primary" id="clear">Clear</button>
 											</p>
 										</div>
 									</div>
@@ -192,12 +203,8 @@ img {
 								<br> <br>
 								<br>
 
-								<div class="form-group">
-									<label class="form-label">Please provide a preferred
-										name with your signature.</label> <input type="text"
-										class="form-control" placeholder="E-Signature Name">
-								</div>
-								<button type="submit" class="btn btn-primary">Submit</button>
+								
+								<!-- <button type="submit" class="btn btn-primary">Submit</button> -->
 							</form>
 						</div>
 					</div>
