@@ -1,4 +1,5 @@
- <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8" />
@@ -7,10 +8,17 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <link rel="icon" href="/img/cal_logo_small.png" type="image/icon type">
-<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css" rel="stylesheet">
-<link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+<link
+	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"
+	rel="stylesheet" crossorigin="anonymous" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+	crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="/css/dashboard.css">
 <style>
 .wrapper {
@@ -37,142 +45,146 @@ img {
 	height: 200px;
 	border: black;
 	border-style: solid;
-	
 }
-element.style {
-padding-bottom: 40px;
+
+.editFields {
+	padding-bottom: 3px;
 }
+
 .form-group {
-margin-bottom: 1rem;
+	margin-bottom: 1rem;
 }
 }
 </style>
 
-<title>Signature Capture</title>
+<title>View Profile</title>
 </head>
 
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="#"><img src="/dist/img/calpers_logo.png" style="height:100%; width:auto;" /></a>
-            <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-     </nav>
-     <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <div class="sb-sidenav-menu-heading" ></div>
-                            <a class="nav-link" href="#" >
-                                <div class="sb-nav-link-icon" style="color:white"><i class="fas fa-home"></i></div>
-                                <span style="color:white">Home</span>
-                            </a>
-                            <a class="nav-link" href="#">
-                                <div class="sb-nav-link-icon" style="color:white"><i class="fas fa-user"></i></div>
-                                <span style="color:white">View/Edit Profile</span>
-                            </a>
-                            <a class="nav-link" href="#">
-                                <div class="sb-nav-link-icon" style="color:white"><i class="fas fa-phone"></i></div>
-                                <span style="color:white">Change password</span>
-                            </a>
-                            
-                            <li sec:authorize="isAuthenticated()">
-                            <a class="nav-link" href="/logout">                            	
-                                <div class="sb-nav-link-icon" style="color:white"><i class="fas fa-power-off"></i></div>
-                               <span style="color:white">Logout</span>        
-                            </a>
-                            </li>
-                 
-                            
-                        </div>
-                </nav>
-            </div>
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid">
-                        <h1 class="mt-4">View/Edit</h1>
-                        
+		<a class="navbar-brand" href="#"><img
+			src="/dist/img/calpers_logo.png" style="height: 100%; width: auto;" /></a>
+		<button class="btn btn-link btn-sm order-1 order-lg-0"
+			id="sidebarToggle" href="#">
+			<i class="fas fa-bars"></i>
+		</button>
+
+	</nav>
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_nav">
+			<nav class="sb-sidenav accordion sb-sidenav-dark"
+				id="sidenavAccordion">
+				<div class="sb-sidenav-menu">
+					<div class="nav">
+						<div class="sb-sidenav-menu-heading"></div>
+						<a class="nav-link" href="#">
+							<div class="sb-nav-link-icon" style="color: white">
+								<i class="fas fa-home"></i>
+							</div> <span style="color: white">Home</span>
+						</a> <a class="nav-link" href="#">
+							<div class="sb-nav-link-icon" style="color: white">
+								<i class="fas fa-user"></i>
+							</div> <span style="color: white">View/Edit Profile</span>
+						</a> <a class="nav-link" href="#">
+							<div class="sb-nav-link-icon" style="color: white">
+								<i class="fas fa-phone"></i>
+							</div> <span style="color: white">Change password</span>
+						</a>
+
+						<li sec:authorize="isAuthenticated()"><a class="nav-link"
+							href="/logout">
+								<div class="sb-nav-link-icon" style="color: white">
+									<i class="fas fa-power-off"></i>
+								</div> <span style="color: white">Logout</span>
+						</a></li>
 
 
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title"> View Profile</h5>
+					</div>
+			</nav>
+		</div>
+		<div id="layoutSidenav_content">
+			<div class="container-fluid">
+				<h1 class="mt-4">View/Edit Profile</h1>
 
-                            </div>
-                            <div class="card-body">
-                                <form>
-                     
+				<div class="card">
+					<div class="card-header">
+						<div class="row">
+							<h5 class="card-title col-sm-10">View Profile</h5>
+							<p style="float: right;" class="col-sm-2">
+								<a href="#" class="btn btn-info btn-sm"> <span
+									class="glyphicon glyphicon-wrench"></span> Edit Profile
+								</a>
+							</p>
+						</div>
+					</div>
+					<div class="card-body">
+						<!-- -------------------------------------------------------------- -->
 
-<p>
-        <a href="#" class="btn btn-info btn-lg">
-          <span class="glyphicon glyphicon-wrench"></span> EDIT INFO
-        </a>
-      </p> 
+						<div class="col-md-8 col-md-offset-2">
+							<form class="form-horizontal" role="form">
+								<div class="form-group editFields">
+									<label class="col-md-4">First name:</label>
+									<div class="col-md-8">
+										<input class="form-control" type="text"
+											th:value="${session.User.firstName}" disabled>
+									</div>
+								</div>
+								<div class="form-group editFields">
+									<label class="col-md-4">Last name:</label>
+									<div class="col-md-8">
+										<input class="form-control" type="text"
+											th:value="${session.User.lastName}" disabled>
+									</div>
+								</div>
+								<div class="form-group editFields">
+									<label class="col-md-4">Organization:</label>
+									<div class="col-md-8">
+										<input class="form-control" type="text"
+											th:value="${session.User.organization}" disabled>
+									</div>
+								</div>
+								<div class="form-group editFields">
+									<label class="col-md-4">Email:</label>
+									<div class="col-md-8">
+										<input class="form-control" type="text"
+											th:value="${session.User.email}" disabled>
+									</div>
+								</div>
+								<div class="form-group editFields">
+									<label class="col-md-4">Contact No:</label>
+									<div class="col-md-8">
+										<input class="form-control" type="text"
+											th:value="${session.User.contactNo}" disabled>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr>
 
-    <!-- -------------------------------------------------------------- -->
-	
-        <h3>User Profile</h3>
-        
-        
-        <form class="form-horizontal" role="form">
-          <div class="form-group">
-            <label class="col-lg-2 control-label">First name:</label>
-            <div class="col-lg-6">
-              <input class="form-control" type="text" value="Jane" disabled>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Last name:</label>
-            <div class="col-lg-3">
-              <input class="form-control" type="text" value="Bishop" disabled>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Organization:</label>
-            <div class="col-lg-6">
-              <input class="form-control" type="text" value="Calpers" disabled>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-lg-3 control-label">Email:</label>
-            <div class="col-lg-6">
-              <input class="form-control" type="text" value="janesemail@gmail.com" disabled>
-            </div>
-			<div class="form-group">
-            <label class="col-lg-3 control-label">Contact No:</label>
-            <div class="col-lg-6">
-              <input class="form-control" type="text" value="9164719963" disabled>
-            </div>
-			<div class="form-group">
-            <label class="col-lg-3 control-label">Preferred Name:</label>
-            <div class="col-lg-6">
-              <input class="form-control" type="text" value="Janeuser" disabled>
-            </div>
-          </div>
-          
-            </div>
-          </div>
-          
-          </div>
-          
-        </form>
-      </div>
-  </div>
-</div>
-<hr>
-           
-                         
-		<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script> 
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-       	<script src="/js/scripts.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
-		<script type="text/javascript">
+
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+		crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+		crossorigin="anonymous"></script>
+	<script src="/js/scripts.js"></script>
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+	<script type="text/javascript">
 		(function(){
 	      var tabs = document.getElementById('tabs');
 	      var nav = tabs.getElementsByTagName('input');
@@ -206,32 +218,6 @@ margin-bottom: 1rem;
 	      }
 		})();
 		
-		var signaturePad = new SignaturePad(document
-				.getElementById('signature-pad'), {
-			backgroundColor : 'rgba(255, 255, 255, 0)',
-			penColor : 'rgb(0, 0, 0)'
-		});
-		var saveButton = document.getElementById('save');
-		var cancelButton = document.getElementById('clear');
-
-		saveButton.addEventListener('click', function(event) {
-			event.preventDefault();
-			var data = signaturePad.toDataURL('image/png');
-			$.ajax({
-				type : "post",
-				url : "/hello",
-				data : data,
-				cache : false,
-				success : function(data) {
-				}
-			});
-		});
-
-		cancelButton.addEventListener('click', function(event) {
-			signaturePad.clear();
-		});
-		</script>
-        
             
      <!-- ----------------------------------------------------------------------------------------------------------------------------------------------- -->       
 </body>
