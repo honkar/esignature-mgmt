@@ -194,7 +194,7 @@ img {
 
 								<div class="form-group">
 									<label class="form-label">Please provide a preferred
-										name with your signature.</label> <input type="text"
+										name with your signature.</label> <input type="text" id="preferredNameId"
 										class="form-control" placeholder="E-Signature Name">
 								</div>
 								<button type="submit" class="btn btn-primary">Submit</button>
@@ -255,9 +255,12 @@ img {
 		uploadBtn.addEventListener('click', function(event) {
 			event.preventDefault();
 			var dataURI = myCanvas.toDataURL();
+			var preferredNameUpload = $('#preferredNameId').val(); 
 			console.log("on Click of upload"+ dataURI);
 			var data = {
-					imgURI : dataURI
+					imgURI : dataURI,
+					uploadType : 'upload',
+					preferredName : preferredNameUpload 
 					
 			};
 			$.ajax({
@@ -295,8 +298,11 @@ img {
 			saveButton.addEventListener('click', function(event) {
 				event.preventDefault();
 				var sign = signaturePad.toDataURL('image/png');
+				var preferredNameDraw = $('#preferredNameId').val();
 				var data ={
-						signImg : sign
+						signImg : sign,
+						uploadType : 'draw',
+					    preferredName : preferredNameDraw
 				};
 				$.ajax({
 					type : "POST",
