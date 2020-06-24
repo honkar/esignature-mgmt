@@ -23,10 +23,7 @@ public class SignatureServiceImpl implements SignatureService{
 	private SignatureRepository signatureRepository;
 	
 	@Autowired
-	User user;
-	
-	@Autowired
-	HttpSession session;
+	private HttpSession session;
 	
 	public Signature addSignature(Signature sign) {
 		return signatureRepository.save(sign);
@@ -41,7 +38,7 @@ public class SignatureServiceImpl implements SignatureService{
 	 */
 	public void uploadSignature(String uploadDirectory, MultipartFile signatureFile){
 		Path fileNameAndPath = Paths.get(uploadDirectory, signatureFile.getOriginalFilename());  
-		user = (User) session.getAttribute("User");
+		User user = (User) session.getAttribute("User");
 		try {
 			// Upload File to "Uploads" folder
 			Files.write(fileNameAndPath, signatureFile.getBytes());
