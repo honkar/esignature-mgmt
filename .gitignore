@@ -1,4 +1,4 @@
-HELP.md
+
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
@@ -40,5 +40,7 @@ build/
 *.tar.gz
 *.rar
 
-src/main/resources/application.properties
-src/main/resources/application.properties
+
+uploads/
+*.md
+
