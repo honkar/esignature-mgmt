@@ -10,7 +10,7 @@ public class MainController {
 
     @GetMapping("/")
     public String root() {
-        return "dashboard";
+        return "dash_v2";
     }
 
     @GetMapping("/login")
@@ -28,9 +28,18 @@ public class MainController {
 		return "signature_v2";
 	}
     
-    @RequestMapping("/profile")
-	public String profile() {
-		return "calpers_Viewprofile";
+    @RequestMapping("/dashboard")
+	public String dashboard() {
+		return "dash_v2";
 	}
+    @RequestMapping("/viewprofile")
+	public String viewprofile() {
+		return "calpers_ViewProfile";
+	}
+    
+    @RequestMapping("/editprofile")
+   	public String editprofile() {
+   		return "calpers_editProfile";
+   	}
 
 }

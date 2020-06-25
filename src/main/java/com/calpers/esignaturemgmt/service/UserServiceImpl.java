@@ -30,7 +30,11 @@ public class UserServiceImpl implements UserService {
     
     @Autowired 
     private HttpSession session;
-
+    
+    public static final int INTERNAL_USER = 1;
+    
+    public static final int EXTERNAL_USER = 2;
+    
     public User findByEmail(String email){
         return userRepository.findByEmail(email);
     }
@@ -43,6 +47,14 @@ public class UserServiceImpl implements UserService {
         user.setContactNo(registration.getContactNo());
         user.setOrganization(registration.getOrganization());
         user.setPassword(passwordEncoder.encode(registration.getPassword()));
+        if(registration.getEmail().contains("@calpers.com"))
+        {
+        	user.setUserType(INTERNAL_USER);
+        }
+        else {
+        	user.setUserType(EXTERNAL_USER);
+        }
+        	
         user.setRoles(Arrays.asList(new Role("ROLE_USER")));
         return userRepository.save(user);
     }

@@ -59,7 +59,7 @@
 					</div>
 
 					<input type="submit" name="login-submit" id="login-submit"
-						class="btn btn-primary btn-lg btn-block" value="Log In" />
+						class="btn btn-primary btn-md btn-block" value="Log In" />
 						<div id="loginlinks" >
 						<a href="#" data-target="#pwdModal" data-toggle="modal">I forgot my password</a> 
 						<a class="register" th:href="@{/registration}">Not a member yet?</a>
@@ -71,21 +71,20 @@
   <div class="modal-content">
       <div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h1 class="text-center">What's My Password?</h1> 
+		<h3 class="text-center">Password Reset</h3> 
 	  </div>
       <div class="modal-body">
           <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="text-center">
-                          
-                          <p>If you have forgotten your password you can reset it here.</p>
+                          <h4>Please provide your registered email address</h4>
                             <div class="panel-body">
                                 <fieldset>
                                     <div class="form-group">
                                         <input class="form-control input-lg" placeholder="E-mail Address" name="email" type="email">
                                     </div>
-                                    <input class="btn btn-lg btn-primary btn-block" value="Send My Password" type="submit">
+                                    <input class="btn btn-md btn-primary btn-block" value="Send" type="submit">
                                 </fieldset>
                             </div>
                         </div>

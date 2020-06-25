@@ -6,5 +6,10 @@ import com.calpers.esignaturemgmt.model.Signature;
 
 @Repository
 public interface SignatureRepository extends JpaRepository<Signature,Long>{
+	// without version history
+	Signature findByUserId(long userId);
+	
+	//with versioning 
+	Signature findByUserIdAndStatus(long userId, int status);
 
 }

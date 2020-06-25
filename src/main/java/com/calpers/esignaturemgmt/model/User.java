@@ -28,6 +28,8 @@ public class User {
     private String password;
     private String organization;
     private String contactNo;
+    // Internal - 1; External -2
+    private int userType;
     private boolean enabled;
     private boolean signStatus;
 
@@ -141,6 +143,15 @@ public class User {
 
 	public void setSignStatus(boolean signStatus) {
 		this.signStatus = signStatus;
+	}
+
+	
+	public int getUserType() {
+		return userType;
+	}
+
+	public void setUserType(int userType) {
+		this.userType = userType;
 	}
 
 	@Override
