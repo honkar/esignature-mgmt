@@ -59,9 +59,8 @@ img {
 }
 
 label {
-font-weight: normal;
+	font-weight: normal;
 }
-
 </style>
 
 <title>Signature Capture</title>
@@ -120,9 +119,20 @@ font-weight: normal;
 					<div class="card">
 						<div class="card-header">
 							<div class="row" style="margin-bottom: -12px;">
-							    <div class="col-md-4"><h5>Home</h5></div>
-								<div class="col-md-4" style="text-align:center;"><h5> Welcome <span th:text="${session.User.firstName}"></span></h5> </div>
-								<div class="col-md-4"><p style="float:right;">User Type: <span th:text="${session.User.userType}==2 ? 'External' : 'Internal'"></span></p></div>
+								<div class="col-md-4">
+									<h5>Home</h5>
+								</div>
+								<div class="col-md-4" style="text-align: center;">
+									<h5>
+										Welcome <span th:text="${session.User.firstName}"></span>
+									</h5>
+								</div>
+								<div class="col-md-4">
+									<p style="float: right;">
+										User Type: <span
+											th:text="${session.User.userType}==2 ? 'External' : 'Internal'"></span>
+									</p>
+								</div>
 							</div>
 
 						</div>
@@ -132,7 +142,8 @@ font-weight: normal;
 								<!-- --------------------------------------------------------- -->
 
 								<div class="row">
-									<label class="col-md-5">Do you want to upload or draw signature ?</label>
+									<label class="col-md-5">Do you want to upload or draw
+										signature ?</label>
 									<div class="col-md-7">
 										<input type="radio" id="uploadOpt" name="signOption"
 											value="upload"><label for="email">Upload</label> <input
@@ -140,10 +151,11 @@ font-weight: normal;
 										<label for="phone">Draw</label>
 									</div>
 								</div>
-								<div class="row" style="padding-top: 16px; padding-bottom: 16px;">
-									<label class="col-md-5">Please enter preferred name with signature:</label> <input
-										type="text" id="preferredNameId" class="form-control col-md-7"
-										placeholder="E-Signature Name">
+								<div class="row"
+									style="padding-top: 16px; padding-bottom: 16px;">
+									<label class="col-md-5">Please enter preferred name
+										with signature:</label> <input type="text" id="preferredNameId"
+										class="form-control col-md-7" placeholder="E-Signature Name">
 								</div>
 
 								<!--   ------------------------------------------------------------------ -->
@@ -192,10 +204,10 @@ font-weight: normal;
 												<br />
 												<div id="fileSelectDiv">
 
-													<input type="file" id="signatureFile"
-														onchange="handleFileSelect()" />
+													<input type="file" id="signatureFile" onclick="click()"
+														onchange="handleFileSelect()"/>
 												</div>
-												<div class="imgActionBtns">
+												<div class="imgActionBtns" id="buttons" >
 													<input type="button" onclick="cropper.startCropping()"
 														value="Start cropping" /> <input type="button"
 														onclick="cropper.getCroppedImageSrc()" value="Crop" /> <input
@@ -232,8 +244,13 @@ font-weight: normal;
 		src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
 	<script type="text/javascript" src="/js/cropper.js"></script>
 	<script>
+	$(document).ready(function() {
+	    $('#signatureFile').click(function() {
+	        $('#imgActionBtns').show();
+	    });
+	});	
 		
-		$(document).ready(function() {
+	$(document).ready(function() {
 			  $('input[type=radio][name="signOption"]').on('change', function() {
 				  if(this.value=="upload") {
 					  $('#uploadContainer').show();
@@ -251,6 +268,7 @@ font-weight: normal;
 			// this function will be called when the file input below is changed
 			var file = document.getElementById("signatureFile").files[0];  // get a reference to the selected file
 			
+			
 			var reader = new FileReader(); 
 			reader.onload = function(event) {
 				var data = event.target.result; // the "data url" of the image
@@ -264,8 +282,11 @@ font-weight: normal;
 		
 		var uploadBtn = document.getElementById('upload');
 		var myCanvas = document.getElementById("testCanvas");
+		
+		
 		// on click of Upload Button
 		uploadBtn.addEventListener('click', function(event) {
+			
 			event.preventDefault();
 			var dataURI = myCanvas.toDataURL();
 			var preferredNameUpload = $('#preferredNameId').val(); 
