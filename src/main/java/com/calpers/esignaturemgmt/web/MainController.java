@@ -32,14 +32,11 @@ public class MainController {
 	public String dashboard() {
 		return "dash_v2";
 	}
-    @RequestMapping("/viewprofile")
-	public String viewprofile() {
-		return "calpers_ViewProfile";
+    
+    @RequestMapping("/changepwd")
+	public String changepwd() {
+		return "crop_v2";
 	}
     
-    @RequestMapping("/editprofile")
-   	public String editprofile() {
-   		return "calpers_editProfile";
-   	}
-
+    
 }
