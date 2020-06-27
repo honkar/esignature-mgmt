@@ -47,8 +47,9 @@ img {
 }
 
 label {
-	font-weight: normal;
+font-weight: normal;
 }
+
 </style>
 
 <title>Signature Capture</title>
@@ -109,53 +110,51 @@ label {
 						<!-- -------------------------------------------------------------- -->
 
 						<div class="col-md-8 col-md-offset-2">
-							<form class="form-horizontal" role="form"
-								th:action="@{/editprofile}" th:object="${editUserObj}" method="post">
+							<form class="form-horizontal" role="form">
 								<div class="form-group editFields">
 									<label class="col-md-4">First name:</label>
 									<div class="col-md-8">
 										<input class="form-control" type="text"
-											th:value="${editUserObj.firstName}" th:field="*{firstName}">
+											th:value="${session.User.firstName}">
 									</div>
 								</div>
 								<div class="form-group editFields">
 									<label class="col-md-4">Last name:</label>
 									<div class="col-md-8">
 										<input class="form-control" type="text"
-											th:value="${editUserObj.lastName}" th:field="*{lastName}">
+											th:value="${session.User.lastName}">
 									</div>
 								</div>
 								<div class="form-group editFields">
 									<label class="col-md-4">Organization:</label>
 									<div class="col-md-8">
 										<input class="form-control" type="text"
-											th:value="${editUserObj.organization}" th:field="*{organization}">
+											th:value="${session.User.organization}">
 									</div>
 								</div>
 								<div class="form-group editFields">
 									<label class="col-md-4">Email:</label>
 									<div class="col-md-8">
 										<input class="form-control" type="text"
-											th:value="${editUserObj.email}" disabled>
+											th:value="${session.User.email}" disabled>
 									</div>
 								</div>
 								<div class="form-group editFields">
 									<label class="col-md-4">Contact No:</label>
 									<div class="col-md-8">
 										<input class="form-control" type="text"
-											th:value="${editUserObj.contactNo}" th:field="*{contactNo}">
-									</div>
-								</div>
-								<div class="form-group" style="padding-top: 20px;">
-									<label class="col-lg-3 control-label"></label>
-									<div class="col-lg-8">
-										<input type="submit" class="btn btn-primary"
-											value="Save Changes"> <span></span> <input
-											type="reset" class="btn btn-default" value="Cancel">
+											th:value="${session.User.contactNo}">
 									</div>
 								</div>
 							</form>
-
+							<div class="form-group" style="padding-top: 20px;">
+								<label class="col-lg-3 control-label"></label>
+								<div class="col-lg-8">
+									<input type="button" class="btn btn-primary"
+										value="Save Changes"> <span></span> <input
+										type="reset" class="btn btn-default" value="Cancel">
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -170,13 +169,52 @@ label {
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
-	<
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+		crossorigin="anonymous"></script>
+	<script src="/js/scripts.js"></script>
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
 	<script type="text/javascript">
-	
-	</script>
+		(function() {
+			var tabs = document.getElementById('tabs');
+			var nav = tabs.getElementsByTagName('input');
+
+			/*
+			 * Hide all tabs
+			 */
+			function hideTabs() {
+				var tab = tabs.getElementsByTagName('div');
+				for (var i = 0; i <= nav.length; i++) {
+					if (tab[i].className == 'tab') {
+						tab[i].className = tab[i].className + ' hide';
+					}
+				}
+			}
+
+			function showTab(tab) {
+				document.getElementById(tab).className = 'tab'
+			}
+
+			hideTabs(); /* hide tabs on load */
+
+			/*
+			 * Add click events
+			 */
+			for (var i = 0; i < nav.length; i++) {
+				nav[i].onclick = function() {
+					hideTabs();
+					showTab(this.className);
+				}
+			}
+		})();
+
+	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------- -->
 </body>
 </html>

@@ -34,6 +34,9 @@ public class UserSessionDto {
 	public String getEmail() {
 		return email;
 	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public String getOrganization() {
 		return organization;
 	}
@@ -65,11 +68,10 @@ public class UserSessionDto {
 	public void setUserType(int userType) {
 		this.userType = userType;
 	}
-	public void copyToSessionDto(User user) {
+	public void copyToUserSession(User user) {
 		this.id = user.getId();
 		this.firstName = user.getFirstName();
 		this.lastName = user.getLastName();
-		this.email = user.getEmail();
 		this.contactNo = user.getContactNo();
 		this.organization = user.getOrganization();
         this.userType = user.getUserType();
@@ -77,7 +79,8 @@ public class UserSessionDto {
 		this.signStatus = user.isSignStatus();
 		
 	}
-	public void copyFromSessionDto(User user) {
+	public void copyFromUserSession(User user) {
+		user.setId(this.getId());
 		user.setFirstName(this.firstName);
 		user.setLastName(this.lastName);
 		user.setContactNo(this.contactNo);
