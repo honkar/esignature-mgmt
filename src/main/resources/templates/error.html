@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<link rel="icon" href="/img/cal_logo_small.png" type="image/icon type">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+<link
+	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"
+	rel="stylesheet">
+<link
+	href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"
+	rel="stylesheet" crossorigin="anonymous" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="/css/dashboard.css">
+<style>
+.wrapper {
+	position: relative;
+	width: 400px;
+	height: 200px;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+img {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.signature-pad {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: inherit;
+	height: 200px;
+	border: black;
+	border-style: solid;
+}
+
+label {
+font-weight: normal;
+}
+
+</style>
+
+<title>Error Page</title>
+</head>
+
+<body class="sb-nav-fixed">
+	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+		<a class="navbar-brand" href="#"><img
+			src="/dist/img/calpers_logo.png" style="height: 100%; width: auto;" /></a>
+		<button class="btn btn-link btn-sm order-1 order-lg-0"
+			id="sidebarToggle" href="#">
+			<i class="fas fa-bars"></i>
+		</button>
+
+	</nav>
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_nav">
+			<nav class="sb-sidenav accordion sb-sidenav-dark"
+				id="sidenavAccordion">
+				<div class="sb-sidenav-menu">
+					<div class="nav">
+						<div class="sb-sidenav-menu-heading"></div>
+						<a class="nav-link" href="/dashboard">
+							<div class="sb-nav-link-icon" style="color: white">
+								<i class="fas fa-home"></i>
+							</div> <span style="color: white">Home</span>
+						</a> <a class="nav-link" href="/viewprofile">
+							<div class="sb-nav-link-icon" style="color: white">
+								<i class="fas fa-user"></i>
+							</div> <span style="color: white">View/Edit Profile</span>
+						</a> <a class="nav-link" href="#">
+							<div class="sb-nav-link-icon" style="color: white">
+								<i class="glyphicon glyphicon-lock"></i>
+							</div> <span style="color: white">Change password</span>
+						</a>
+
+						<li sec:authorize="isAuthenticated()"><a class="nav-link"
+							href="/logout">
+								<div class="sb-nav-link-icon" style="color: white">
+									<i class="fas fa-power-off"></i>
+								</div> <span style="color: white">Logout</span>
+						</a></li>
+
+
+					</div>
+			</nav>
+		</div>
+		<div id="layoutSidenav_content">
+			<div class="container-fluid">
+				<h4></h4>
+				<div class="card">
+					<div class="card-header">
+						<div class="row">
+							<h5 class="card-title">Error Page</h5>
+						</div>
+					</div>
+					<div class="card-body">
+
+						<h4 style="text-align: center;">Opps!! Something went wrong. Please login again...</h4>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<hr>
+
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+		crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+		crossorigin="anonymous"></script>
+	<script src="/js/scripts.js"></script>
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+	<script type="text/javascript">
+		(function() {
+			var tabs = document.getElementById('tabs');
+			var nav = tabs.getElementsByTagName('input');
+
+			/*
+			 * Hide all tabs
+			 */
+			function hideTabs() {
+				var tab = tabs.getElementsByTagName('div');
+				for (var i = 0; i <= nav.length; i++) {
+					if (tab[i].className == 'tab') {
+						tab[i].className = tab[i].className + ' hide';
+					}
+				}
+			}
+
+			function showTab(tab) {
+				document.getElementById(tab).className = 'tab'
+			}
+
+			hideTabs(); /* hide tabs on load */
+
+			/*
+			 * Add click events
+			 */
+			for (var i = 0; i < nav.length; i++) {
+				nav[i].onclick = function() {
+					hideTabs();
+					showTab(this.className);
+				}
+			}
+		})();
+</script>
+</body>
+</html>
