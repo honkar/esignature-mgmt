@@ -93,7 +93,7 @@ label {
 								<i class="fas fa-user"></i>
 							</div> <span class="sidebar" style="color: white; padding-left: 5px;">View/Edit
 								Profile</span>
-						</a> <a class="nav-link" href="#">
+						</a> <a class="nav-link" href="/changepwd">
 							<div class="sb-nav-link-icon" style="color: white">
 								<i class="glyphicon glyphicon-lock"></i>
 							</div> <span class="sidebar" style="color: white; padding-left: 4px;">Change
@@ -118,19 +118,19 @@ label {
 				<div class="container-fluid">
 					<div class="card">
 						<div class="card-header">
-							<div class="row" style="margin-bottom: -12px;">
-								<div class="col-md-4">
+							<div class="row" style="margin-bottom:-12px;">
+								<div class="col-sm-4">
 									<h5>Home</h5>
 								</div>
-								<div class="col-md-4" style="text-align: center;">
+								<div class="col-sm-4" style="text-align: center;">
 									<h5>
-										Welcome <span th:text="${session.User.firstName}"></span>
+										Welcome <span th:text="${session.userDetails.firstName}"></span>
 									</h5>
 								</div>
-								<div class="col-md-4">
+								<div class="col-sm-4">
 									<p style="float: right;">
 										User Type: <span
-											th:text="${session.User.userType}==2 ? 'External' : 'Internal'"></span>
+											th:text="${session.userDetails.userType}==2 ? 'External' : 'Internal'"></span>
 									</p>
 								</div>
 							</div>
@@ -141,23 +141,21 @@ label {
 
 								<!-- --------------------------------------------------------- -->
 
-								<div class="row">
-									<label class="col-md-5">Do you want to upload or draw
-										signature ?</label>
-									<div class="col-md-7">
+                                <div class="row"
+									style="padding-bottom: 16px;">
+									<label class="col-md-6">Please enter preferred name
+										with signature:</label> <input type="text" id="preferredNameId"
+										class="form-control col-md-5" placeholder="E-Signature Name">
+								</div>
+								<div class="row" style="padding-bottom: 16px;">
+									<label class="col-md-6">Would you like to draw or upload your signature?</label>
+									<div class="col-md-5">
 										<input type="radio" id="uploadOpt" name="signOption"
-											value="upload"><label for="email">Upload</label> <input
-											type="radio" id="drawOpt" name="signOption" value="draw">
-										<label for="phone">Draw</label>
+											value="draw"><label for="email">Draw</label> <input
+											type="radio" id="drawOpt" name="signOption" value="upload">
+										<label for="phone">Upload</label>
 									</div>
 								</div>
-								<div class="row"
-									style="padding-top: 16px; padding-bottom: 16px;">
-									<label class="col-md-5">Please enter preferred name
-										with signature:</label> <input type="text" id="preferredNameId"
-										class="form-control col-md-7" placeholder="E-Signature Name">
-								</div>
-
 								<!--   ------------------------------------------------------------------ -->
 								<div id="drawContainer" class="container" style="display: none;">
 									<div>
