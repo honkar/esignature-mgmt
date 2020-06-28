@@ -38,6 +38,19 @@ public class NotificationService {
 		
 	}
 	
+	public void resetPassword(User user) throws MailException {
+		ConfirmationToken confirmationToken = new ConfirmationToken(user);
+        confirmationTokenRepository.save(confirmationToken);
+		SimpleMailMessage mail = new SimpleMailMessage();
+		mail.setTo(user.getEmail());
+		mail.setFrom("noreply.esignmgmt@gmail.com");
+		mail.setSubject("CalPERS eSignature Management : Reset Password");
+		mail.setText("To reset your eSignature Management account password: "
+	            +"http://localhost:8080/resetpassword?token="+confirmationToken.getConfirmationToken());
+		mailSender.send(mail);
+		
+	}
+	
 	
 
 }
