@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -58,11 +60,53 @@ h1 {
 			<h1 style="font-size: 25px;">Registration</h1>
 			<form th:action="@{/registration}" th:object="${user}" method="post">
 
-				<p class="error-message" th:if="${#fields.hasGlobalErrors()}"
-					th:each="error : ${#fields.errors('global')}" th:text="${error}">Validation
-					error</p>
+				<div class="has-feedback">			
+			      <input type="text" class="form-control" id="validationCustom01" placeholder="First name"
+			        required><span class="glyphicon glyphicon-user form-control-feedback"></span>
+			    </div>   <br>
+			    
+			    <div class="has-feedback">		    
+			      <input type="text" class="form-control" id="validationCustom02" placeholder="Last name"
+			        required><span class="glyphicon glyphicon-user form-control-feedback"></span>
+			    </div>     <br>
+			        
+			    
+				<div class="has-feedback">			    
+  				<input id="phonenum" class="form-control" type="tel" pattern="^\d{3}\d{3}\d{4}$" placeholder="Contact number (xxx-xxx-xxxx)" required >    
+				<span class="glyphicon glyphicon-earphone form-control-feedback"></span>
+				</div>	<br>
 
-				<div class="form-group has-feedback"
+
+				<div class="has-feedback" >				
+					<input type="email" class="form-control" placeholder="Email" th:field="*{email}"> 
+					<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+					
+				</div> <br>
+				
+				<div class="has-feedback">			    
+  				<input type="password" id="inputValidationEx1" class="form-control validate" placeholder="Password" pattern="[A-Za-z]{8}" title="Eight letter Password">
+  				<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+				<div class="requirements"> Must be a valid password!</div>
+		
+				</div> <br>
+				
+		
+		
+				
+				<div class="has-feedback">			    
+  				<input type="password" id="inputValidationEx2" class="form-control validate" placeholder="Confirm Password" pattern="[A-Za-z]{8}" title="Eight letter Password">     
+				<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+				<div class="requirements"> Password should match!</div>
+				</div> <br>
+
+				
+				
+				<div class="has-feedback">
+			      <input type="text" class="form-control" id="validationCustom03" placeholder="Organization"
+			        required><span class="fa fa-building form-control-feedback"></span>
+			    </div>  
+				
+				<!-- <div class="form-group has-feedback"
 					th:classappend="${#fields.hasErrors('firstName')}? 'has-error':''">
 					<input type="text" class="form-control" placeholder="First name"
 						th:field="*{firstName}"> <span
@@ -70,8 +114,8 @@ h1 {
 					<p class="error-message"
 						th:each="error : ${#fields.errors('firstName')}"
 						th:text="${error}">Validation error</p>
-				</div>
-				<div class="form-group has-feedback"
+				</div> -->
+				<!-- <div class="form-group has-feedback"
 					th:classappend="${#fields.hasErrors('lastName')}? 'has-error':''">
 					<input type="text" class="form-control" placeholder="Last name"
 						th:field="*{lastName}"> <span
@@ -79,8 +123,8 @@ h1 {
 					<p class="error-message"
 						th:each="error : ${#fields.errors('lastName')}" th:text="${error}">Validation
 						error</p>
-				</div>
-				<div class="form-group has-feedback"
+				</div> -->
+				<!-- <div class="form-group has-feedback"
 					th:classappend="${#fields.hasErrors('contactNo')}? 'has-error':''">
 					<input type="text" class="form-control" placeholder="Contact No"
 						th:field="*{contactNo}"> <span
@@ -88,17 +132,9 @@ h1 {
 					<p class="error-message"
 						th:each="error : ${#fields.errors('contactNo')}"
 						th:text="${error}">Validation error</p>
-				</div>
-				<div class="form-group has-feedback"
-					th:classappend="${#fields.hasErrors('email')}? 'has-error':''">
-					<input type="email" class="form-control" placeholder="Email"
-						th:field="*{email}"> <span
-						class="glyphicon glyphicon-envelope form-control-feedback"></span>
-					<p class="error-message"
-						th:each="error : ${#fields.errors('email')}" th:text="${error}">Validation
-						error</p>
-				</div>
-				<div class="form-group has-feedback"
+				</div> -->
+				
+				<!-- <div class="form-group has-feedback"
 					th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
 					<input type="password" class="form-control" placeholder="Password"
 						th:field="*{password}"> <span
@@ -107,9 +143,9 @@ h1 {
 						th:each="error : ${#fields.errors('password')}" th:text="${error}">Validation
 						error</p>
 
-				</div>
+				</div> -->
 
-				<div class="form-group has-feedback"
+				<!-- <div class="form-group has-feedback"
 					th:classappend="${#fields.hasErrors('confirmPassword')}? 'has-error':''">
 					<input type="password" class="form-control"
 						placeholder="Confirm password" th:field="*{confirmPassword}">
@@ -117,8 +153,8 @@ h1 {
 					<p class="error-message"
 						th:each="error : ${#fields.errors('confirmPassword')}"
 						th:text="${error}">Validation error</p>
-				</div>
-				<div class="form-group has-feedback"
+				</div> -->
+				<!-- <div class="form-group has-feedback"
 					th:classappend="${#fields.hasErrors('organization')}? 'has-error':''">
 					<input type="text" class="form-control" placeholder="Organization"
 						th:field="*{organization}"> <span
@@ -127,7 +163,7 @@ h1 {
 						th:each="error : ${#fields.errors('organization')}"
 						th:text="${error}">Validation error</p>
 
-				</div>
+				</div> -->
 
 				<div class="row">
 					<div class="form-group"
@@ -146,6 +182,11 @@ h1 {
 						<button type="submit" class="btn btn-primary btn-block btn-flat">Sign
 							up</button>
 					</div>
+					<div class="form-group">
+
+						<span>Already registered? <a href="/" th:href="@{/login}">Login
+								here</a></span>
+					</div>
 					<!-- /.col -->
 				</div>
 			</form>
@@ -161,6 +202,7 @@ h1 {
 					</button>
 					<h3 class="modal-title" style="text-align:center;">Terms & Conditions</h3>
 				</div>
+				
 				<div class="modal-body" style="text-align: justify;">
 					<p class="tcPara">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 						Vestibulum suscipit eget metus non cursus. Praesent sollicitudin
@@ -194,6 +236,7 @@ h1 {
 						pulvinar orci. Mauris egestas felis id dui finibus consequat.
 						Morbi facilisis tellus vitae molestie convallis.</p>
 				</div>
+				
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default pull-left"
 						data-dismiss="modal">Close</button>
@@ -221,3 +264,13 @@ h1 {
 	</script>
 </body>
 </html>
+
+
+
+			
+
+
+
+			
+
+			
