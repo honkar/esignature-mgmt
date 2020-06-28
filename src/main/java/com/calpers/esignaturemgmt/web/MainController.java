@@ -10,7 +10,7 @@ public class MainController {
 
     @GetMapping("/")
     public String root() {
-        return "dash_v2";
+        return "dash_v3";
     }
 
     @GetMapping("/login")
@@ -30,12 +30,12 @@ public class MainController {
     
     @RequestMapping("/dashboard")
 	public String dashboard() {
-		return "dash_v2";
+		return "dash_v3";
 	}
     
     @RequestMapping("/changepwd")
 	public String changepwd() {
-		return "crop_v2";
+		return "change_password";
 	}
     
     
