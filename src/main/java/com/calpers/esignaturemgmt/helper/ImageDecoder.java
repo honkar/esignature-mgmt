@@ -6,7 +6,7 @@ import java.io.IOException;
 import org.apache.commons.codec.binary.Base64;
 
 public class ImageDecoder {
-	public static String uploadDirectory = System.getProperty("user.dir")+"/uploads";
+	public static String uploadDirectory = System.getProperty("user.dir")+"/src/main/resources/static/uploads";
 
 	public boolean decodeToImage(String imageString, String fileName) {
 		// decode Base64 String to image

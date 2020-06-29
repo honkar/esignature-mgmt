@@ -9,12 +9,8 @@
 <link rel="icon" href="/img/cal_logo_small.png" type="image/icon type">
 <link rel="stylesheet" type="text/css"
 	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
-
 <link
 	href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"
-	rel="stylesheet">
-<link
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
 	rel="stylesheet">
 <link
 	href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"
@@ -22,9 +18,6 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"
 	crossorigin="anonymous"></script>
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.3/cropper.css"
-	rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="/css/dashboard.css">
 <style>
 .wrapper {
@@ -69,29 +62,10 @@ label {
 	font-weight: normal;
 }
 
-#canvas {
-	height: 250px;
-	width: 400px;
-	background-color: #ffffff;
-	cursor: default;
-	border: 1px solid black;
-}
-
-#result {
-	height: 250px;
-	width: 400px;
-	background-color: #ffffff;
-	cursor: default;
-	border: 1px solid black;
-}
-
-.previewDiv {
-	padding-top:11px;
-}
-
-#uploadImg {
-	max-width: 100%;
-	position: relative;
+.ImageBorder
+{
+    border-width: 1px;
+    border-color: Black;
 }
 </style>
 
@@ -125,9 +99,9 @@ label {
 								<i class="fas fa-user"></i>
 							</div> <span class="sidebar" style="color: white; padding-left: 5px;">View/Edit
 								Profile</span>
-						</a> <a class="nav-link" href="/changepwd">
+						</a> <a class="nav-link" href="#">
 							<div class="sb-nav-link-icon" style="color: white">
-								<i class="fa fa-lock"></i>
+								<i class="glyphicon glyphicon-lock"></i>
 							</div> <span class="sidebar" style="color: white; padding-left: 4px;">Change
 								password</span>
 						</a>
@@ -169,99 +143,45 @@ label {
 
 						</div>
 						<div class="card-body">
-							<!-- --------------------------------------------------------- -->
+							<form>
+								<div style="float: right;" class="col-sm-2">
+								<a href="/editDashboard" class="btn btn-info btn-sm"> <span
+									class="glyphicon glyphicon-wrench"></span> Edit Signature
+								</a>
+							    </div>
+								<div class="col-md-8 col-md-offset-4">
+									<form class="form-horizontal" role="form">
+                                		<div id="container" class="form-group">
+                                		<div id="sigContainer" class="row" style="
+                                			padding-top: 66px;
+                                			margine-top: 40px">
+                                			<img th:src="@{'/uploads/' + ${signatureName}}" width="400px" height="250px" style="padding:1px;border: solid black;"/> 
+                                		</div>
+                                		
+                                		<div class="row"
+                                		style="
+                                			padding-top: 200px;
+                                			margine-top: 40px;
+                                			padding-left: 100px">
+                               			 	<h6 class="card-title">
+										 	Preferred Name : <span th:text="${preferredName}"></span>
+							    			</h6>
+                               			</div>
+                               			 
+                               			 <div class="row"
+                               			 style="
+                                			padding-left: 100px">
+                                			<h6 class="card-title">
+											Upload Date : <span th:text="${uploadDate}"></span>
+							    			</h6>
+                                		</div>
+                                		</div>
+                                	</form>
+                                </div>	
+								<!-- -------------------------------------------------------------- -->
 
-							<div class="row" style="padding-top: 16px; padding-bottom: 16px;">
-								<label class="col-md-6">Please enter preferred name with
-									signature:</label> <input type="text" id="preferredNameId"
-									class="form-control col-md-6" placeholder="E-Signature Name">
-							</div>
-							<div class="row">
-								<label class="col-md-6">Would you like to draw or upload
-									your signature ?</label>
-								<div class="col-md-6">
-									<input type="radio" id="drawOpt" name="signOption" value="draw">
-									<label for="draw">Draw</label> <input type="radio"
-										id="uploadOpt" name="signOption" value="upload"><label
-										for="upload">Upload</label>
-								</div>
-							</div>
-
-
-							<!--   ------------------------------------------------------------------ -->
-							<div id="drawContainer" class="container" style="display: none;">
-								<div>
-									<div id="signpad-ajax-msg" class="alert alert-dismissible"
-										style="display: none;">
-										<input type="button" class="close btn btn-sm"
-											data-dismiss="alert" aria-hidden="true" value="x">
-										<p></p>
-									</div>
-								</div>
-								<div id="signpad-div" class="row signpad-padding">
-									<div>
-										<h5>Please draw your signature</h5>
-										<div class="wrapper">
-											<canvas id="signature-pad" class="signature-pad" width="400"
-												height="200"></canvas>
-										</div>
-										<p class="imgActionBtns">
-
-											<input type="button" class="btn btn-md btn-primary" id="save"
-												value="Save"> <input type="button"
-												class="btn btn-md btn-primary" id="clear" value="Clear">
-										</p>
-									</div>
-								</div>
-							</div>
-							<!-- ----------------------------------------------------------- -->
-
-							<div id="uploadContainer" class="container"
-								style="display: none;">
-								<div>
-									<div id="upload-ajax-msg" class="alert alert-dismissible"
-										style="display: none;">
-										<input type="button" class="close btn btn-sm"
-											data-dismiss="alert" aria-hidden="true" value="x">
-										<p></p>
-									</div>
-								</div>
-								<div class="row" style="padding-top: 22px;">
-									<div class="uploadDiv col-md-6">
-										<div class="row" style="padding-bottom: 15px; padding-left: 14px;">
-											<!-- Below are a series of inputs which allow file selection and interaction with the cropper api -->
-											<input type="file" id="fileInput" accept="image/*" />
-										</div>
-										
-										<div>
-											<canvas id="canvas">Your browser does not support the HTML5 canvas element.</canvas>
-										</div>
-										<div class="row"
-											style="padding-top: 10px; padding-bottom: 10px;">
-											<div class="col-sm-3">
-												<button class="btn btn-sm btn-primary" id="btnCrop">
-													<i class="fa fa-crop"></i> Crop
-												</button>
-											</div>
-											<div class="col-sm-3">
-												<button class="btn btn-sm btn-primary" id="btnRestore">
-													<i class="fa fa-undo"></i> Restore
-												</button>
-											</div>
-										</div>
-										<input type="button" name="submitFile" id="upload"
-												class="form-control btn btn-primary"
-												value="Upload Signature" />
-									</div>
-									<div class="previewDiv col-md-6">
-										<h5>Preview</h5>
-										<div id="result"></div>
-									</div>
-								</div>
-							</div>
-							<!-- -------------------------------------------------------------- -->
-
-							<!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+								<!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+							</form>
 						</div>
 					</div>
 				</div>
@@ -270,24 +190,25 @@ label {
 	</div>
 	<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"
 		crossorigin="anonymous"></script> -->
-
-
-	<!--<script
-		src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script
-		src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
+
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.3/cropper.js"></script>
+	<script type="text/javascript" src="/js/cropper.js"></script>
 	<script>
+	$(document).ready(function() {
+	    $('#signatureFile').click(function() {
+	        $('#imgActionBtns').show();
+	    });
+	});	
 		
-		$(document).ready(function() {
+	$(document).ready(function() {
 			  $('input[type=radio][name="signOption"]').on('change', function() {
 				  if(this.value=="upload") {
 					  $('#uploadContainer').show();
@@ -299,11 +220,12 @@ label {
 			  });
 			});
 		// CROPPER SCRIPT
-		/*cropper.start(document.getElementById("testCanvas"), 1); // initialize cropper by providing it with a target canvas and a XY ratio (height = width * ratio)
+		cropper.start(document.getElementById("testCanvas"), 1); // initialize cropper by providing it with a target canvas and a XY ratio (height = width * ratio)
 		
 		function handleFileSelect() {
 			// this function will be called when the file input below is changed
 			var file = document.getElementById("signatureFile").files[0];  // get a reference to the selected file
+			
 			
 			var reader = new FileReader(); 
 			reader.onload = function(event) {
@@ -317,62 +239,18 @@ label {
 		}
 		
 		var uploadBtn = document.getElementById('upload');
-		var myCanvas = document.getElementById("testCanvas");*/
+		var myCanvas = document.getElementById("testCanvas");
 		
-		var canvas = $("#canvas");
-		context = canvas.get(0).getContext("2d");
-		$result = $("#result");
-
-		$("#fileInput").on("change", function(e) {
-		  if (this.files && this.files[0]) {
-		    var reader = new FileReader();
-		    reader.onload = function (evt) {
-		      var img = new Image();
-		      img.onload = function () {
-		        context.canvas.height = img.height;
-		        context.canvas.width = img.width;
-		        context.drawImage(img, 0, 0);
-		        var cropper = canvas.cropper({
-		          aspectRatio: 16 / 9
-		        });
-		        $("#btnCrop").click(function(e) {
-		          // Get a string base 64 data url
-		          e.preventDefault();
-		          var croppedImageDataURL = canvas
-		            .cropper("getCroppedCanvas")
-		            .toDataURL("image/png");
-		          $result.html(
-		            $('<img id="uploadImg" style="object-fit:contain;">').attr(
-		              "src",
-		              croppedImageDataURL
-		            )
-		          );
-		        });
-		        $("#btnRestore").click(function(e) {
-		        e.preventDefault();
-		          canvas.cropper("reset");
-		          $result.empty();
-		        });
-		      };
-		      img.src = evt.target.result;
-		    };
-		    reader.readAsDataURL(this.files[0]);
-		  } else {
-		    alert("No file(s) selected.");
-		  }
-		});
-
-		
-		var uploadBtn = document.getElementById('upload');
 		
 		// on click of Upload Button
 		uploadBtn.addEventListener('click', function(event) {
+			
 			event.preventDefault();
-			var dataURI =  $('#uploadImg').attr('src');
+			var dataURI = myCanvas.toDataURL();
 			var preferredNameUpload = $('#preferredNameId').val(); 
 			console.log("on Click of upload"+ dataURI);
 			var data = {
-					signImg : dataURI,
+					imgURI : dataURI,
 					uploadType : 'upload',
 					preferredName : preferredNameUpload
 					
@@ -389,23 +267,13 @@ label {
 						$('#upload-ajax-msg').find("p").append("Successfully saved signature.");
 						$('#upload-ajax-msg').show();
 						$('#uploadSignDiv').hide();
-						window.location.href="/dashboard";
 					}
 					else {
 						$('#upload-ajax-msg').addClass('alert-danger');
 						$('#upload-ajax-msg').find("p").append("Error while saving signature. Please try again.");
 						$('#upload-ajax-msg').show();
 					}
-				},
-				error: function(data) {
-					$('#upload-ajax-msg').addClass('alert-danger');
-					$('#upload-ajax-msg').find("p").append("Error while saving signature. Please try again.");
-					$('#upload-ajax-msg').show();
-		            /*$(".message").text(returnval + " failure");
-		            $(".message").fadeIn("slow");
-		            $(".message").delay(2000).fadeOut(1000);*/
-		        }
-			
+				}
 			});
 			
 		});
@@ -440,22 +308,13 @@ label {
 							$('#signpad-ajax-msg').find("p").append("Successfully saved signature.");
 							$('#signpad-ajax-msg').show();
 							$('#signpad-div').hide();
-							window.location.href="/dashboard";
 						}
 						else {
 							$('#signpad-ajax-msg').addClass('alert-danger');
 							$('#signpad-ajax-msg').find("p").append("Error while saving signature. Please try again.");
 							$('#signpad-ajax-msg').show();
 						}
-					},
-					error: function(data) {
-						$('#signpad-ajax-msg').addClass('alert-danger');
-						$('#signpad-ajax-msg').find("p").append("Error while saving signature. Please try again.");
-						$('#signpad-ajax-msg').show();
-			            /*$(".message").text(returnval + " failure");
-			            $(".message").fadeIn("slow");
-			            $(".message").delay(2000).fadeOut(1000);*/
-			        }
+					}
 				});
 			});
 

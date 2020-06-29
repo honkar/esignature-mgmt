@@ -75,7 +75,7 @@ public class Signature {
     }
 	
 	public int getVersion() {
-		return type;
+		return this.version;
 	}
 	
 	public void setVersion(int version) {

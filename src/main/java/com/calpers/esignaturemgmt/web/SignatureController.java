@@ -17,16 +17,20 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.calpers.esignaturemgmt.helper.ImageDecoder;
 import com.calpers.esignaturemgmt.helper.RemoveBackground;
+import com.calpers.esignaturemgmt.model.Signature;
 import com.calpers.esignaturemgmt.model.User;
 import com.calpers.esignaturemgmt.service.SignatureService;
+import com.calpers.esignaturemgmt.web.dto.SignatureAjax;
+import com.calpers.esignaturemgmt.web.dto.UserSessionDto;
 
 @RestController
 public class SignatureController {
-	public static String uploadDirectory = System.getProperty("user.dir")+"/uploads";
+	public static String uploadDirectory = System.getProperty("user.dir")+"/src/main/resources/static/uploads";
 	public static final int ACTIVE_SIGNATURE = 1;
 	public static final int INACTIVE_SIGNATURE = 2;
 	public static final int DRAW_SIGNATURE = 1;
 	public static final int UPLOAD_SIGNATURE = 2;
+	public static final int SIGNATURE_VERSION_FIRST = 1;
 	
 	@Autowired
 	private SignatureService signatureService;
@@ -55,13 +59,27 @@ public class SignatureController {
     }
 	
 	@RequestMapping(value = "/saveSignature", method = RequestMethod.POST)
-    public ResponseEntity<Object> saveSignature(@RequestBody String signImg) {
+    public ResponseEntity<Object> saveSignature(@RequestBody SignatureAjax signatureObject) {
 		ImageDecoder imgDecoder = new ImageDecoder();
 		RemoveBackground remBackground = new RemoveBackground();
-		User user = (User) session.getAttribute("User");
+		UserSessionDto user = (UserSessionDto) session.getAttribute("userDetails");
 		int signatureType = DRAW_SIGNATURE;
-		String fileName = "Signature_" + user.getId()+".png";
-		String str[] = signImg.split(",");
+		
+		// Set File Name
+		StringBuilder fileName = new StringBuilder();
+		fileName.append("Signature_").append(user.getId());
+		
+		Signature latestSignature = signatureService.findSignatureByUserIdAndStatus(user.getId(), SignatureController.ACTIVE_SIGNATURE);
+		if(latestSignature != null) {
+			fileName.append("_");
+			fileName.append(latestSignature.getVersion() + 1);
+		} else {
+			fileName.append("_");
+			fileName.append(SignatureController.SIGNATURE_VERSION_FIRST);
+		}
+		fileName.append(".png");
+		
+	/*	String str[] = signImg.split(",");
 		// Get upload type (upload/draw)
 		String uploadTypeString[] = str[2].split(":");
 		String uploadType = uploadTypeString[1];
@@ -75,17 +93,27 @@ public class SignatureController {
 		preferredName = preferredNameString[1].replace("\"", "");
 		preferredName = preferredName.replace("}", "");
 		if (preferredName.isBlank()) {
-			preferredName = null;
+			preferredName = null; 
+		}  */
+		
+		String str[] = signatureObject.getSignImg().split(",");
+		String uploadType = signatureObject.getUploadType();
+		if (uploadType.contentEquals("upload")) {
+			signatureType = UPLOAD_SIGNATURE;
+		}
+		String preferredName = signatureObject.getPreferredName();
+		if (preferredName.isBlank()) {
+			preferredName = null; 
 		}
 		
 		// Store signature to upload folder
-		boolean uploadStatus = imgDecoder.decodeToImage(str[1],fileName);
+		boolean uploadStatus = imgDecoder.decodeToImage(str[1],fileName.toString());
 		
 		// Remove background from signature 
-		boolean removeBackgroundStatus = remBackground.removeBackground(fileName);
+		boolean removeBackgroundStatus = remBackground.removeBackground(fileName.toString());
 		
 		if(uploadStatus && removeBackgroundStatus) {
-			signatureService.saveDBSignature(fileName, signatureType, preferredName);
+			signatureService.saveDBSignature(fileName.toString(), signatureType, preferredName);
 		}
 		
 		

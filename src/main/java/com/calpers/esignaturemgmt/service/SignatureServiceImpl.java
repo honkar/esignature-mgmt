@@ -17,6 +17,7 @@ import com.calpers.esignaturemgmt.model.Signature;
 import com.calpers.esignaturemgmt.model.User;
 import com.calpers.esignaturemgmt.repository.SignatureRepository;
 import com.calpers.esignaturemgmt.web.SignatureController;
+import com.calpers.esignaturemgmt.web.dto.UserSessionDto;
 
 @Service
 public class SignatureServiceImpl implements SignatureService{
@@ -35,16 +36,18 @@ public class SignatureServiceImpl implements SignatureService{
 		signatureRepository.deleteById(id);
 	}
 	
+	public Signature findSignatureByUserIdAndStatus(long userId, int status) {
+		return signatureRepository.findByUserIdAndStatus(userId, status);
+	}
+	
 	/*
 	 * Upload signature to the Uploads folder.
 	 */
 	public void saveDBSignature(String fileName, int signatureType, String preferredName){
-		//Path fileNameAndPath = Paths.get(uploadDirectory, signatureFile.getOriginalFilename());  
-		User user = (User) session.getAttribute("User");
+		UserSessionDto user = (UserSessionDto) session.getAttribute("userDetails");
 		try {
-			// Upload File to "Uploads" folder
-			//Files.write(fileNameAndPath, signatureFile.getBytes());
-			// Set signature values
+			
+			Signature latestSignature = findSignatureByUserIdAndStatus(user.getId(), SignatureController.ACTIVE_SIGNATURE);
 			Signature sign = new Signature();
 			sign.setFileName(fileName);
 			sign.setStatus(SignatureController.ACTIVE_SIGNATURE);
@@ -56,10 +59,18 @@ public class SignatureServiceImpl implements SignatureService{
 			}
 			
 			sign.setUserId(user.getId()); 
-			sign.setVersion(1); // TODO set latest version
+			if (latestSignature != null ) {
+				int version = latestSignature.getVersion() + 1;
+				sign.setVersion(version); 
+			} else {
+				sign.setVersion(SignatureController.SIGNATURE_VERSION_FIRST); 
+			}
 			sign.setPreferredName(preferredName);
 			Timestamp currentDate = new Timestamp(Calendar.getInstance().getTime().getTime());
 			sign.setUploadDate(currentDate);
+			
+			// Set all other signatures status to inactive of the user
+			signatureRepository.setSignatureStatus(SignatureController.INACTIVE_SIGNATURE, user.getId());
 			
 			// Add signature to database.
 			addSignature(sign);

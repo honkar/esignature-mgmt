@@ -15,7 +15,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class RemoveBackground {
-	public static String uploadDirectory = System.getProperty("user.dir")+"/uploads";
+	public static String uploadDirectory = System.getProperty("user.dir")+"/src/main/resources/static/uploads";
 	
 	public boolean removeBackground(String fileName) {
 		boolean status;
