@@ -44,7 +44,7 @@ public class MainController {
     		model.addAttribute("uploadDate", uploadDate.toString());
             return "dashboardViewSignature";
     	} else {
-    		return "dash_v3";
+    		return "dash_v4";
     	}
         
     }
@@ -66,7 +66,7 @@ public class MainController {
     
     @RequestMapping("/editDashboard")
 	public String editDashboard() {
-		return "dash_v3";
+		return "dash_v4";
 	}
     
     @RequestMapping("/dashboard")
@@ -89,7 +89,7 @@ public class MainController {
     		model.addAttribute("uploadDate", uploadDate.toString());
             return "dashboardViewSignature";
     	} else {
-    		return "dash_v3";
+    		return "dash_v4";
     	}
 	}
     
