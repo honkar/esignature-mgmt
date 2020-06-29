@@ -95,7 +95,7 @@ public class MainController {
     
     @RequestMapping("/changepwd")
 	public String changepwd() {
-		return "change_password";
+		return "change_pwd";
 	}
     
     
