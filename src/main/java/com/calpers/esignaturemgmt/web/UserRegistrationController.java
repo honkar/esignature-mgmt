@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,31 +27,34 @@ import com.calpers.esignaturemgmt.web.dto.UserRegistrationDto;
 
 @Controller
 public class UserRegistrationController {
-	
+
 	private Logger logger = LoggerFactory.getLogger(UserRegistrationController.class);
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
-	 private ConfirmationTokenRepository confirmationTokenRepository;
+	private ConfirmationTokenRepository confirmationTokenRepository;
 
 	@Autowired
 	private NotificationService notifyService;
+
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@ModelAttribute("user")
 	public UserRegistrationDto userRegistrationDto() {
 		return new UserRegistrationDto();
 	}
 
-	@RequestMapping(value="/registration", method= {RequestMethod.GET})
+	@RequestMapping(value = "/registration", method = { RequestMethod.GET })
 	public String showRegistrationForm(Model model) {
 		return "signup";
 	}
 
-	@RequestMapping(value="/registration", method= {RequestMethod.POST})
+	@RequestMapping(value = "/registration", method = { RequestMethod.POST })
 	public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDto userDto,
 			BindingResult result) {
 
@@ -69,33 +73,59 @@ public class UserRegistrationController {
 			notifyService.sendNotification(registeredUser);
 		} catch (Exception e) {
 
-			logger.info("Error while sending email "+ e.getMessage());
+			logger.info("Error while sending email " + e.getMessage());
 		}
 		return "registerSuccess";
 	}
-	
-	  @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
-	    public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token")String confirmationToken)
-	    {
-	        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
 
-	        if(token != null)
-	        {
-	            User user = userService.findByEmail(token.getUser().getEmail());
-	            user.setEnabled(true);
-	            userRepository.save(user);
-	            modelAndView.addObject("title","Account Activation");
-	            modelAndView.addObject("message","Account activated");
-	            modelAndView.setViewName("accountActivation");
-	        }
-	        else
-	        {
-	        	modelAndView.addObject("title","Account Activation");
-	            modelAndView.addObject("message","The link is invalid or broken!");
-	            modelAndView.setViewName("accountActivation");
-	        }
+	@RequestMapping(value = "/confirm-account", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token") String confirmationToken) {
+		ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
 
-	        return modelAndView;
-	    }
+		if (token != null) {
+			User user = userService.findByEmail(token.getUser().getEmail());
+			user.setEnabled(true);
+			userRepository.save(user);
+			modelAndView.addObject("title", "Account Activation");
+			modelAndView.addObject("message", "Account activated");
+			modelAndView.setViewName("accountActivation");
+		} else {
+			modelAndView.addObject("title", "Account Activation");
+			modelAndView.addObject("message", "The link is invalid or broken!");
+			modelAndView.setViewName("accountActivation");
+		}
+
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/resetpassword", method = { RequestMethod.GET })
+	public String forgotPassword(Model model, @RequestParam("token") String confirmationToken) {
+		ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+
+		if (token != null) {
+			String email = token.getUser().getEmail();
+			model.addAttribute("email", email);
+		} else {
+			model.addAttribute("error", "The link is invalid or broken!");
+		}
+
+		return "resetPwd";
+	}
+
+	@RequestMapping(value = "/resetpassword", method = { RequestMethod.POST })
+	public String resetPassword(Model model, String email, String pwd) {
+		User user = userService.findByEmail(email);
+
+		if (user != null) {
+			user.setPassword(passwordEncoder.encode(pwd));
+			User updatedUser = userRepository.save(user);
+			if (updatedUser != null) {
+
+				return "redirect:/login?success";
+			}
+
+		}
+		return "redirect:/resetpassword?error";
+	}
 
 }

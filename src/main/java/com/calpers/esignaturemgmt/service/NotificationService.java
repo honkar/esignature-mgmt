@@ -45,7 +45,7 @@ public class NotificationService {
 		mail.setTo(user.getEmail());
 		mail.setFrom("noreply.esignmgmt@gmail.com");
 		mail.setSubject("CalPERS eSignature Management : Reset Password");
-		mail.setText("To reset your eSignature Management account password: "
+		mail.setText("Please link on the below link to reset your eSignature Management account password: "
 	            +"http://localhost:8080/resetpassword?token="+confirmationToken.getConfirmationToken());
 		mailSender.send(mail);
 		
