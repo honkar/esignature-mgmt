@@ -32,7 +32,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/plugins/**",
                             "/confirm-account**",
                             "/saveSignature**",
-                            "/resetpwd**").permitAll()
+                            "/resetpwd**",
+                            "/resetpassword**").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()

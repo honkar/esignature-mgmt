@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" href="/img/cal_logo_small.png" type="image/icon type">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
+<style>
+.activation__wrapper {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.activation__container {
+	background-color: rgb(255, 255, 255);
+	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+	border-radius: 3px;
+	width: 420px;
+	height: auto;
+	font-family: 'Open Sans';
+	text-align: center;
+}
+
+.activation__header {
+	width: 100%;
+	height: 60px;
+	padding: 10px 0;
+}
+
+.activation__logo {
+	width: 250px;
+}
+
+.activation__subject {
+	height: 40px;
+	text-align: center;
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.activation__arrow {
+	position: relative;
+	background: transparent;
+}
+
+.activation__arrow:after {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(255, 255, 255, 0);
+	border-top-color: #fff;
+	border-width: 20px;
+	margin-left: -20px;
+}
+
+.activation__message {
+	background-color: rgb(248, 248, 248);
+	height: 60px;
+	line-height: 25px;
+	padding: 30px 10px 10px;
+	font-size: 15px;
+}
+
+.activation__user {
+	font-weight: 600;
+	font-size: 18px;
+}
+
+.activation__link {
+	background-color: rgb(255, 255, 255);
+	height: fit-content;
+	font-size: 15px;
+	line-height: 25px;
+	padding: 20px 10px;
+}
+
+.activation__btn {
+	border-radius: 3px;
+	color: rgb(255, 255, 255);
+	font-size: 15px;
+	background: rgb(21, 142, 255);
+	padding: 10px 20px;
+	text-decoration: none;
+	width: 200px;
+	margin: 10px auto 0;
+	cursor: pointer;
+}
+
+.activation__btn:hover {
+	background: #2997ff; /*lighten(rgb(21,142,255), 3)*/
+	text-decoration: none;
+}
+
+.activation__footer {
+	font-size: 13px;
+	line-height: 20px;
+	height: 50px;
+	padding: 10px 0;
+}
+</style>
+
+<link rel="stylesheet" type="text/css"
+	href="//fonts.googleapis.com/css?family=Open+Sans" />
+</head>
+<body>
+	<div class="activation__wrapper">
+		<div class="activation__container">
+			<header>
+				<center>
+					<img src="/img/calpers_logo.png">
+				</center>
+			</header>
+
+			<h3>Reset Password</h3>
+			<div class="activation__link">
+				<form id="pwdReset">
+
+					<div id="ajax-msg" class="alert alert-dismissible"
+						style="display: none;">
+						<input type="button" class="btn btn-md close" data-dismiss="alert"
+							aria-hidden="true" value="x">
+						<p style="font-size:small; font-weight:700;"></p>
+					</div>
+					<div>
+						<input type="hidden" th:value="${email}" id="email">
+						<div class="form-group">
+							<label style="float:left;" for="Password">New Password</label> <input
+								type="text" class="form-control" id="newPwd"
+								placeholder="Password">
+						</div>
+						<div class="form-group">
+							<label style="float:left;" for="Confirm Password">Confirm Password</label> <input
+								type="text" class="form-control" id="confirmPwd"
+								placeholder="Confirm Password">
+						</div>
+					</div>
+					<div>
+						<input type="button" id="submitBtn" class="btn btn-primary"
+							value="Reset Password">
+					</div>
+				</form>
+			</div>
+			<div class="activation__footer">
+				Calpers Support Team <br />
+			</div>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		crossorigin="anonymous"></script>
+	<script type="text/javascript"
+		th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+	<script>
+		var uploadBtn = document.getElementById('submitBtn');
+
+		uploadBtn
+				.addEventListener(
+						'click',
+						function(event) {
+							event.preventDefault();
+							var newPwd = $('#newPwd').val();
+							var email = $('#email').val();
+							var data = {
+								newPwd : newPwd,
+								email : email
+							};
+							$
+									.ajax({
+										type : "POST",
+										data : JSON.stringify(data),
+										contentType : "application/json",
+										url : "resetpassword",
+										cache : false,
+										success : function(data) {
+											if (data == "Success") {
+												$('#ajax-msg').addClass(
+														'alert-success');
+												$('#ajax-msg')
+														.find("p")
+														.html(
+																'Password reset successfull. Please login <a href="http://localhost:8080/login">Here</a>');
+												$('#ajax-msg').show();
+											} else {
+												$('#ajax-msg').addClass(
+														'alert-danger');
+												$('#ajax-msg')
+														.find("p")
+														.append(
+																"Failed to reset password.");
+												$('#ajax-msg').show();
+											}
+										},
+										error : function(data) {
+											$('#ajax-msg').addClass(
+													'alert-danger');
+											$('#ajax-msg')
+													.find("p")
+													.html(
+															"Failed to reset password.");
+											$('#ajax-msg').show();
+											/*$(".message").text(returnval + " failure");
+											$(".message").fadeIn("slow");
+											$(".message").delay(2000).fadeOut(1000);*/
+										}
+
+									});
+
+						});
+	</script>
+</body>
+</html>

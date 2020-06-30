@@ -9,9 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +21,9 @@ import com.calpers.esignaturemgmt.repository.ConfirmationTokenRepository;
 import com.calpers.esignaturemgmt.repository.UserRepository;
 import com.calpers.esignaturemgmt.service.NotificationService;
 import com.calpers.esignaturemgmt.service.UserService;
+import com.calpers.esignaturemgmt.web.dto.PwdDto;
 import com.calpers.esignaturemgmt.web.dto.UserRegistrationDto;
+import com.calpers.esignaturemgmt.web.dto.UserSessionDto;
 
 @Controller
 public class UserRegistrationController {
@@ -101,31 +101,13 @@ public class UserRegistrationController {
 	@RequestMapping(value = "/resetpassword", method = { RequestMethod.GET })
 	public String forgotPassword(Model model, @RequestParam("token") String confirmationToken) {
 		ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
-
 		if (token != null) {
 			String email = token.getUser().getEmail();
-			model.addAttribute("email", email);
+			model.addAttribute("email",email);
 		} else {
 			model.addAttribute("error", "The link is invalid or broken!");
 		}
-
-		return "resetPwd";
-	}
-
-	@RequestMapping(value = "/resetpassword", method = { RequestMethod.POST })
-	public String resetPassword(Model model, String email, String pwd) {
-		User user = userService.findByEmail(email);
-
-		if (user != null) {
-			user.setPassword(passwordEncoder.encode(pwd));
-			User updatedUser = userRepository.save(user);
-			if (updatedUser != null) {
-
-				return "redirect:/login?success";
-			}
-
-		}
-		return "redirect:/resetpassword?error";
+		return "resetpwd";
 	}
 
 }
