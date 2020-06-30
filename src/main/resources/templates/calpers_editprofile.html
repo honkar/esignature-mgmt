@@ -30,6 +30,10 @@
 	user-select: none;
 }
 
+.sidebar {
+	padding-bottom: 2px;
+}
+
 img {
 	position: absolute;
 	left: 0;
@@ -51,7 +55,7 @@ label {
 }
 </style>
 
-<title>Signature Capture</title>
+<title>Edit Profile</title>
 </head>
 
 <body class="sb-nav-fixed">
@@ -72,25 +76,30 @@ label {
 					<div class="nav">
 						<div class="sb-sidenav-menu-heading"></div>
 						<a class="nav-link" href="/dashboard">
+
 							<div class="sb-nav-link-icon" style="color: white">
 								<i class="fas fa-home"></i>
-							</div> <span style="color: white">Home</span>
+							</div> <span class="sidebar" style="color: white">Home</span>
 						</a> <a class="nav-link" href="/viewprofile">
 							<div class="sb-nav-link-icon" style="color: white">
 								<i class="fas fa-user"></i>
-							</div> <span style="color: white">View/Edit Profile</span>
+							</div> <span class="sidebar" style="color: white; padding-left: 5px;">View/Edit
+								Profile</span>
 						</a> <a class="nav-link" href="/changepwd">
 							<div class="sb-nav-link-icon" style="color: white">
 								<i class="glyphicon glyphicon-lock"></i>
-							</div> <span style="color: white">Change password</span>
+							</div> <span class="sidebar" style="color: white; padding-left: 4px;">Change
+								password</span>
 						</a>
 
 						<li sec:authorize="isAuthenticated()"><a class="nav-link"
 							href="/logout">
-								<div class="sb-nav-link-icon" style="color: white">
+								<div class="sb-nav-link-icon"
+									style="color: white; padding-left: 3px;">
 									<i class="fas fa-power-off"></i>
-								</div> <span style="color: white">Logout</span>
+								</div> <span class="sidebar" style="color: white; padding-left: 5px;">Logout</span>
 						</a></li>
+
 
 
 					</div>
@@ -170,6 +179,7 @@ label {
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
+	<script src="js/scripts.js"></script>		
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script
