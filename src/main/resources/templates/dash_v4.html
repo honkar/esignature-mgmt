@@ -232,8 +232,13 @@ label {
 									<div class="uploadDiv col-md-6">
 										<div class="row"
 											style="padding-bottom: 15px; padding-left: 14px;">
+											<a class='my-tool-tip' data-toggle="tooltip" data-placement="left" 
+											title="Choose an image with plain background and dark signature">
+                								<i class='glyphicon glyphicon-info-sign'></i>
+            								</a>
 											<!-- Below are a series of inputs which allow file selection and interaction with the cropper api -->
-											<input type="file" id="fileInput" accept="image/*" />
+											<input type="file" id="fileInput" accept="image/*" 
+											style="padding-left: 10px;"/>
 										</div>
 
 										<div>
@@ -360,8 +365,14 @@ label {
 			$('#imgActionBtns').show();
 			$('#upload').show();
 		  if (this.files && this.files[0]) {
-		    var reader = new FileReader();
-		    reader.onload = function (evt) {
+			  // File should be more than 15 KB and less than 5 MB
+			  if(((this.files[0].size)/1024 < 15) && ((this.files[0].size)/1024/1024 < 5)) {
+				    this.value="";
+			    	alert("File too big!!");
+			    	return;
+			  }
+		    	var reader = new FileReader();
+		   		reader.onload = function (evt) {
 		      var img = new Image();
 		      img.onload = function () {
 		        context.canvas.height = img.height;
