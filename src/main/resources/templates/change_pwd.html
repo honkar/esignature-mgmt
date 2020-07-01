@@ -129,20 +129,22 @@ label {
 									<label class="col-md-4">Current Password:</label>
 									<div class="col-md-8">
 										<input type="password" id="currentPwd"
-											placeholder="Current password">
+											placeholder="Current password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
 									</div>
 								</div>
 								<div class="form-group editFields">
 									<label class="col-md-4">New Password:</label>
 									<div class="col-md-8">
-										<input type="password" id="newPwd" placeholder="Password">
+										<input type="password" id="newPwd" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
+										<div class="requirements"> Accept at least one number and one uppercase and lowercase letter, and at least 6 or more characters!</div>
+		
 									</div>
 								</div>
 								<div class="form-group editFields">
 									<label class="col-md-4">Confirm Password:</label>
 									<div class="col-md-8">
 										<input type="password" id="confirmPwd"
-											placeholder="Confirm Password">
+											placeholder="Confirm Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}">
 									</div>
 
 								</div>

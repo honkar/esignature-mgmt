@@ -89,17 +89,17 @@ h1 {
 			    </div>  <br>
 				
 				<div class="has-feedback">			    
-  				<input type="password" id="password" th:field="*{password}" class="form-control validate" placeholder="Password" pattern="[A-Za-z]{8}" title="Eight letter Password">
+  				<input type="password" id="password" th:field="*{password}" class="form-control validate" placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Given password must match the password requirements!">
   				<span class="glyphicon glyphicon-lock form-control-feedback" ></span>
-				<div class="requirements"> Must be a valid password!</div>
+				<div class="requirements">Accept at least one number and one uppercase and lowercase letter, and at least 6 or more characters!</div>
 		
 				</div> <br>
 					
 				
 				<div class="has-feedback">			    
-  				<input type="password" id="confirmPassword" th:field="*{confirmPassword}" class="form-control validate" placeholder="Confirm Password" pattern="[A-Za-z]{8}" title="Eight letter Password">     
+  				<input type="password" id="confirmPassword" th:field="*{confirmPassword}" class="form-control validate" placeholder="Confirm Password" "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" >    
 				<span class="glyphicon glyphicon-lock form-control-feedback" ></span>
-				<div class="requirements"> Password should match!</div>
+				<div class="requirements"> Match with a valid password!</div>
 				</div> 
 				
 				<div class="row">
