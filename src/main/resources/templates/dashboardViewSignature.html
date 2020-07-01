@@ -62,10 +62,9 @@ label {
 	font-weight: normal;
 }
 
-.ImageBorder
-{
-    border-width: 1px;
-    border-color: Black;
+.ImageBorder {
+	border-width: 1px;
+	border-color: Black;
 }
 </style>
 
@@ -143,41 +142,52 @@ label {
 
 						</div>
 						<div class="card-body">
+
 							<form>
+								<div th:if="${param.success}" style="text-align: center;">
+									<div class="alert alert-success alert-dismissible">
+										<input type="button" class="close btn btn-sm"
+											data-dismiss="alert" aria-hidden="true" value="x">
+										<p>Successfully saved signature.</p>
+									</div>
+								</div>
+								<div th:if="${param.error}" style="text-align: center;">
+									<div class="alert alert-danger alert-dismissible">
+										<input type="button" class="close btn btn-sm"
+											data-dismiss="alert" aria-hidden="true" value="x">
+										<p>Error while saving signature. Please try again.</p>
+									</div>
+								</div>
 								<div style="float: right;" class="col-sm-2">
-								<a href="/editDashboard" class="btn btn-info btn-sm"> <span
-									class="glyphicon glyphicon-wrench"></span> Edit Signature
-								</a>
-							    </div>
+									<a href="/editDashboard" class="btn btn-info btn-sm"> <span
+										class="glyphicon glyphicon-wrench"></span> Edit Signature
+									</a>
+								</div>
 								<div class="col-md-8 col-md-offset-4">
 									<form class="form-horizontal" role="form">
-                                		<div id="container" class="form-group">
-                                		<div id="sigContainer" class="row" style="
-                                			padding-top: 66px;
-                                			margine-top: 40px">
-                                			<img th:src="@{'/uploads/' + ${signatureName}}" width="400px" height="250px" style="padding:1px;border: solid black;"/> 
-                                		</div>
-                                		
-                                		<div class="row"
-                                		style="
-                                			padding-top: 200px;
-                                			margine-top: 40px;
-                                			padding-left: 100px">
-                               			 	<h6 class="card-title">
-										 	Preferred Name : <span th:text="${preferredName}"></span>
-							    			</h6>
-                               			</div>
-                               			 
-                               			 <div class="row"
-                               			 style="
-                                			padding-left: 100px">
-                                			<h6 class="card-title">
-											Upload Date : <span th:text="${uploadDate}"></span>
-							    			</h6>
-                                		</div>
-                                		</div>
-                                	</form>
-                                </div>	
+										<div id="container" class="form-group">
+											<div id="sigContainer" class="row"
+												style="padding-top: 66px; margine-top: 40px">
+												<img th:src="@{'/uploads/' + ${signatureName}}"
+													width="400px" height="250px"
+													style="padding: 1px; border: solid black;" />
+											</div>
+
+											<div class="row"
+												style="padding-top: 200px; margine-top: 40px; padding-left: 100px">
+												<h6 class="card-title">
+													Preferred Name : <span th:text="${preferredName}"></span>
+												</h6>
+											</div>
+
+											<div class="row" style="padding-left: 100px">
+												<h6 class="card-title">
+													Upload Date : <span th:text="${uploadDate}"></span>
+												</h6>
+											</div>
+										</div>
+									</form>
+								</div>
 								<!-- -------------------------------------------------------------- -->
 
 								<!-- <button type="submit" class="btn btn-primary">Submit</button> -->
@@ -200,124 +210,11 @@ label {
 		src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
-	<script src="js/scripts.js"></script>	
+	<script src="js/scripts.js"></script>
 	<script type="text/javascript" src="/js/cropper.js"></script>
 	<script>
-		
-	$(document).ready(function() {
-			  $('input[type=radio][name="signOption"]').on('change', function() {
-				  if(this.value=="upload") {
-					  $('#uploadContainer').show();
-					  $('#drawContainer').hide();
-				  } else {
-					  $('#drawContainer').show();
-					  $('#uploadContainer').hide();
-				  }
-			  });
-			});
-		// CROPPER SCRIPT
-		cropper.start(document.getElementById("testCanvas"), 1); // initialize cropper by providing it with a target canvas and a XY ratio (height = width * ratio)
-		
-		function handleFileSelect() {
-			// this function will be called when the file input below is changed
-			var file = document.getElementById("signatureFile").files[0];  // get a reference to the selected file
-			
-			
-			var reader = new FileReader(); 
-			reader.onload = function(event) {
-				var data = event.target.result; // the "data url" of the image
-				cropper.showImage(data); 
-				console.log("Cropper--->"+data)
-			};
-			// this loads the file as a data url calling the function above once done
-			reader.readAsDataURL(file); 
-		
-		}
-		
-		var uploadBtn = document.getElementById('upload');
-		var myCanvas = document.getElementById("testCanvas");
-		
-		
-		// on click of Upload Button
-		uploadBtn.addEventListener('click', function(event) {
-			
-			event.preventDefault();
-			var dataURI = myCanvas.toDataURL();
-			var preferredNameUpload = $('#preferredNameId').val(); 
-			console.log("on Click of upload"+ dataURI);
-			var data = {
-					imgURI : dataURI,
-					uploadType : 'upload',
-					preferredName : preferredNameUpload
-					
-			};
-			$.ajax({
-				type : "POST",
-				data : JSON.stringify(data),
-				contentType : "application/json",
-			    url : "saveSignature",
-				cache : false,
-				success : function(data) {
-					if(data == "Success") {
-						$('#upload-ajax-msg').addClass('alert-success');
-						$('#upload-ajax-msg').find("p").append("Successfully saved signature.");
-						$('#upload-ajax-msg').show();
-						$('#uploadSignDiv').hide();
-					}
-					else {
-						$('#upload-ajax-msg').addClass('alert-danger');
-						$('#upload-ajax-msg').find("p").append("Error while saving signature. Please try again.");
-						$('#upload-ajax-msg').show();
-					}
-				}
-			});
-			
-		});
-		
-		<!-- ----------Signature Pad Script------------------->
-			var signaturePad = new SignaturePad(document
-					.getElementById('signature-pad'), {
-				backgroundColor : 'rgba(255, 255, 255, 0)',
-				penColor : 'rgb(0, 0, 0)'
-			});
-			var saveButton = document.getElementById('save');
-			var cancelButton = document.getElementById('clear');
-
-			saveButton.addEventListener('click', function(event) {
-				event.preventDefault();
-				var sign = signaturePad.toDataURL('image/png');
-				var preferredNameDraw = $('#preferredNameId').val();
-				var data ={
-						signImg : sign,
-						uploadType : 'draw',
-					    preferredName : preferredNameDraw
-				};
-				$.ajax({
-					type : "POST",
-					data : JSON.stringify(data),
-					contentType : "application/json",
-				    url : "saveSignature",
-					cache : false,
-					success : function(data) {
-						if(data == "Success") {
-							$('#signpad-ajax-msg').addClass('alert-success');
-							$('#signpad-ajax-msg').find("p").append("Successfully saved signature.");
-							$('#signpad-ajax-msg').show();
-							$('#signpad-div').hide();
-						}
-						else {
-							$('#signpad-ajax-msg').addClass('alert-danger');
-							$('#signpad-ajax-msg').find("p").append("Error while saving signature. Please try again.");
-							$('#signpad-ajax-msg').show();
-						}
-					}
-				});
-			});
-
-			cancelButton.addEventListener('click', function(event) {
-				signaturePad.clear();
-			});
-		</script>
+	
+</script>
 
 
 	<!-- ----------------------------------------------------------------------------------------------------------------------------------------------- -->

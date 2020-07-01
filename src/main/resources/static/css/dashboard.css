@@ -4823,10 +4823,11 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 .alert-dismissible .close {
   position: absolute;
-  top: 0;
+  top: -3px;
   right: 0;
   padding: 0.75rem 1.25rem;
   color: inherit;
+  font-size: larger;
 }
 
 .alert-primary {

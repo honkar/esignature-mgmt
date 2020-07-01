@@ -15,7 +15,11 @@
 <link rel="stylesheet" type="text/css"
 	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" href="/css/style.css">
-
+<style>
+.alert-dismissable .close, .alert-dismissible .close {
+top:-7px;
+}
+</style>
 
 </head>
 
@@ -45,7 +49,7 @@
 						<div class="alert alert-danger" style="text-align:center;">Invalid email or password.</div>
 					</div>
 					<div th:if="${param.success}">
-						<div class="alert alert-success" style="text-align:center;">Password reset was
+						<div class="alert alert-success" style="text-align:center;">Password reset
 							successful. Please login again with new password.</div>
 					</div>
 					<div th:if="${param.logout}">
@@ -135,7 +139,7 @@
             var data = {
                 email: emailId
             };
-            var delay = 2000;
+            var delay = 5000;
             $.ajax({
                     type: "POST",
                     data: JSON.stringify(data),
@@ -150,7 +154,7 @@
                             $('#ajax-msg')
                                 .find("p")
                                 .html(
-                                    "Password reset link sent to your email id. If you are registered with us you will be receiving an email shortly");
+                                    "Password reset link sent to your email id. If you are registered with us you will be receiving an email shortly.");
                             $('#ajax-msg').show();
                             setTimeout(function(){
                             	  window.location.href = "/login";
@@ -164,7 +168,7 @@
                         $('#ajax-msg')
                             .find("p")
                             .html(
-                                "Failed to reset password.");
+                                "Email is not registered.");
                         $('#ajax-msg').show();
                     }
                 });

@@ -36,6 +36,7 @@ img {
 	left: 0;
 	top: 0;
 }
+
 .sidebar {
 	padding-bottom: 2px;
 }
@@ -131,12 +132,18 @@ label {
 					<div class="card-body">
 						<!-- -------------------------------------------------------------- -->
 						<div th:if="${param.success}">
-							<div class="alert alert-success">Successfully saved profile
-								details.</div>
+							<div class="alert alert-success alert-dismissible">
+								<input type="button" class="close btn btn-sm"
+									data-dismiss="alert" aria-hidden="true" value="x">
+								<p style="text-align:center;">Successfully saved profile details.</p>
+							</div>
 						</div>
 						<div th:if="${param.error}">
-							<div class="alert alert-danger">Failed to update profile
-								details.</div>
+							<div class="alert alert-danger alert-dismissible">
+								<input type="button" class="close btn btn-sm"
+									data-dismiss="alert" aria-hidden="true" value="x">
+								<p style="text-align:center;">Failed to update profile details.</p>
+							</div>
 						</div>
 
 						<div class="col-md-8 col-md-offset-2">
@@ -191,7 +198,7 @@ label {
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
 		crossorigin="anonymous"></script>
-	<script src="js/scripts.js"></script>		
+	<script src="js/scripts.js"></script>
 
 	<script
 		src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
