@@ -77,10 +77,12 @@ h1 {
 				</div>	<br>
 
 
-				<div class="has-feedback" >				
+				<div class="has-feedback" th:classappend="${#fields.hasErrors('email')}? 'has-error':''">				
 					<input type="email" id="email" class="form-control" placeholder="Email" th:field="*{email}" onchange="setOrg()"> 
 					<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-					
+						<p class="error-message"
+						th:each="error : ${#fields.errors('email')}" th:text="${error}">Validation
+						error</p>
 				</div> <br>
 				
 				<div class="has-feedback">
@@ -97,7 +99,7 @@ h1 {
 					
 				
 				<div class="has-feedback">			    
-  				<input type="password" id="confirmPassword" th:field="*{confirmPassword}" class="form-control validate" placeholder="Confirm Password" "(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" >    
+  				<input type="password" id="confirmPassword" th:field="*{confirmPassword}" class="form-control" placeholder="Confirm Password" required>    
 				<span class="glyphicon glyphicon-lock form-control-feedback" ></span>
 				<div class="requirements"> Match with a valid password!</div>
 				</div> 
@@ -106,7 +108,7 @@ h1 {
 					<div class="form-group"
 						th:classappend="${#fields.hasErrors('terms')}? 'has-error':''">
 						<div class="checkbox icheck">
-							<label> <input id="terms" type="checkbox" th:field="*{terms}" /><span style="padding-left: 5px;">I
+							<label> <input id="terms" type="checkbox" th:field="*{terms}" required/><span style="padding-left: 5px;">I
 									agree to the <a data-toggle="modal"
 									data-target="#modal-default">Terms and Conditions</a>
 							</span>
