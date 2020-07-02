@@ -383,7 +383,7 @@ label {
 			  }
 			  else {
 				  $('#imgActionBtns').show();
-			      $('#upload').show();
+			      
 			  
 		    	var reader = new FileReader();
 		   		reader.onload = function (evt) {
@@ -407,6 +407,7 @@ label {
 		              croppedImageDataURL
 		            )
 		          );
+		          $('#upload').show();
 		        });
 		        $("#btnRestore").click(function(e) {
 		        e.preventDefault();
