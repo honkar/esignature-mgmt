@@ -6,19 +6,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.calpers.esignaturemgmt.helper.ImageDecoder;
 import com.calpers.esignaturemgmt.helper.RemoveBackground;
 import com.calpers.esignaturemgmt.model.Signature;
-import com.calpers.esignaturemgmt.model.User;
 import com.calpers.esignaturemgmt.service.SignatureService;
 import com.calpers.esignaturemgmt.web.dto.SignatureAjax;
 import com.calpers.esignaturemgmt.web.dto.UserSessionDto;
@@ -37,16 +32,6 @@ public class SignatureController {
 	
 	@Autowired
 	private HttpSession session;
-	
-
-	/*@PostMapping("/uploadSignatureCall")
-    public String upload(Model model, @RequestParam("signatureFile") MultipartFile file) {
-  	  
-		signatureService.uploadSignature(uploadDirectory, file);
-  	 
-		model.addAttribute("successfulUploadMsg", "Signature Uploaded Successfully "+file.getOriginalFilename());
-		return "uploadStatusView";
-    }*/
 	
 	@RequestMapping(value = "/uploadSignatureCall", method = RequestMethod.POST)
     public ResponseEntity<Object> upload(@RequestBody String signImg) {
@@ -78,24 +63,7 @@ public class SignatureController {
 			fileName.append(SignatureController.SIGNATURE_VERSION_FIRST);
 		}
 		fileName.append(".png");
-		
-	/*	String str[] = signImg.split(",");
-		// Get upload type (upload/draw)
-		String uploadTypeString[] = str[2].split(":");
-		String uploadType = uploadTypeString[1];
-		uploadType = uploadType.replace("\"", "");
-		if (uploadType.contentEquals("upload")) {
-			signatureType = UPLOAD_SIGNATURE;
-		}
-		// Get preferred name if given
-		String preferredNameString[] = str[3].split(":");
-		String preferredName = preferredNameString[1];
-		preferredName = preferredNameString[1].replace("\"", "");
-		preferredName = preferredName.replace("}", "");
-		if (preferredName.isBlank()) {
-			preferredName = null; 
-		}  */
-		
+	
 		String str[] = signatureObject.getSignImg().split(",");
 		String uploadType = signatureObject.getUploadType();
 		if (uploadType.contentEquals("upload")) {

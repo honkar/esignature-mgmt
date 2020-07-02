@@ -23,18 +23,19 @@ public class RemoveBackground {
 		
 		    File inFile = new File(uploadDirectory, fileName);
 		   
-		    BufferedImage source = ImageIO.read(inFile);
+		    BufferedImage signatureImage = ImageIO.read(inFile);
  
-		    int color = source.getRGB(0, 0);
+		    // Get the color of the first pixel. (Background color)
+		    int backgroundColor = signatureImage.getRGB(0, 0);
 		    
-		    if (color != 0) { // image does not have transparent background
+		    if (backgroundColor != 0) { // image does not have transparent background
 
-		    	Image image = makeColorTransparent(source, new Color(color));
+		    	Image image = setBackgroundTransparent(signatureImage, new Color(backgroundColor));
 
-		    	BufferedImage transparent = imageToBufferedImage(image);
+		    	BufferedImage signBackgroundTransparent = imageToBufferedImage(image);
 
 		    	File out = new File(uploadDirectory, fileName);
-		    	ImageIO.write(transparent, "PNG", out);
+		    	ImageIO.write(signBackgroundTransparent, "PNG", out);
 		    }
 	        status = true;
 		} catch(IOException e) {
@@ -56,17 +57,17 @@ public class RemoveBackground {
 
 	 }
 
-	 public static Image makeColorTransparent(BufferedImage im, final Color color) {
+	 public static Image setBackgroundTransparent(BufferedImage im, final Color color) {
 	        ImageFilter filter = new RGBImageFilter() {
 
-	            // the color we are looking for... Alpha bits are set to opaque
+	        	// Get the background color in the image and set its Alpha bits to opaque
 	            public long markerRGB = color.getRGB() | 0xFF000000;
 
 	            public final int filterRGB(int x, int y, int rgb) {
-	                if ((rgb | 0xFF000000) >= markerRGB - 0xB0B0B) {
-	                    // Mark the alpha bits as zero - transparent
+	                if ((rgb | 0xFF000000) >= markerRGB - 0xB0B0B) {  // Pixel color same or lighter than background
+	                    //Set alpha bits to zero (transparent)
 	                    return 0x00FFFFFF & rgb;
-	                } else {
+	                } else { // Pixel color darker than background 
 	                    // nothing to do
 	                    return rgb;
 	                }
