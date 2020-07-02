@@ -150,7 +150,7 @@ top:-7px;
                         if (data == "Success") {
                             console.log("success block");
                             $('#ajax-msg').addClass(
-                                'alert-success');
+                                'alert-success').removeClass('alert-danger');
                             $('#ajax-msg')
                                 .find("p")
                                 .html(
@@ -164,7 +164,7 @@ top:-7px;
                     error: function(data) {
                         console.log("error block");
                         $('#ajax-msg').addClass(
-                            'alert-danger');
+                            'alert-danger').removeClass('alert-success');
                         $('#ajax-msg')
                             .find("p")
                             .html(

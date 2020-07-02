@@ -170,6 +170,15 @@ label {
 
 						</div>
 						<div class="card-body">
+
+							<div>
+								<div id="alert-msg" class="alert alert-dismissible"
+									style="display: none;">
+									<input type="button" class="close btn btn-sm"
+										data-dismiss="alert" aria-hidden="true" value="x">
+									<p></p>
+								</div>
+							</div>
 							<!-- --------------------------------------------------------- -->		
 
 							<div class="row" style="padding-top: 16px; padding-bottom: 16px;">
@@ -181,11 +190,18 @@ label {
 								<label class="col-md-6">Would you like to draw or upload
 									your signature ?</label>
 								<div class="col-md-6">
-									<input type="radio" id="drawOpt" name="signOption" value="draw">
-									<label for="draw">Draw</label> <input type="radio"
-										id="uploadOpt" name="signOption" value="upload">
-										<label "padding-left: 3px;"
-										for="upload">Upload</label>
+								<div class="row">
+									<div>
+										<input type="radio" id="drawOpt" name="signOption"
+											value="draw"> <label for="draw"
+											style="padding-left: 3px;">Draw</label>
+									</div>
+									<div style="padding-left: 18px;">
+										<input type="radio" id="uploadOpt" name="signOption"
+											value="upload"> <label style="padding-left: 3px;"
+											for="upload">Upload</label>
+									</div>
+									</div>
 								</div>
 							</div>
 
@@ -202,7 +218,7 @@ label {
 								</div>
 								<div id="signpad-div" class="row signpad-padding">
 									<div>
-										<h5>Please draw your signature</h5>
+										<h5 style="padding-top:20px;">Please draw your signature</h5>
 										<div class="wrapper">
 											<canvas id="signature-pad" class="signature-pad" width="400"
 												height="200"></canvas>
@@ -220,14 +236,6 @@ label {
 
 							<div id="uploadContainer" class="container"
 								style="display: none;">
-								<div>
-									<!-- <div id="upload-ajax-msg" class="alert alert-dismissible"
-										style="display: none;">
-										<input type="button" class="close btn btn-sm"
-											data-dismiss="alert" aria-hidden="true" value="x">
-										<p></p>
-									</div>-->
-								</div>
 								<div class="row" style="padding-top: 22px;">
 									<div class="uploadDiv col-md-6">
 										<div class="row"
@@ -362,15 +370,21 @@ label {
 		$result = $("#result");
 
 		$("#fileInput").on("change", function(e) {
-			$('#imgActionBtns').show();
-			$('#upload').show();
+			
 		  if (this.files && this.files[0]) {
 			  // File should be more than 15 KB and less than 5 MB
 			  if(((this.files[0].size)/1024 < 15) && ((this.files[0].size)/1024/1024 < 5)) {
 				    this.value="";
-			    	alert("File too big!!");
+			    	$('#alert-msg').addClass('alert-danger');
+					$('#alert-msg').find("p").html("File size should be greater than 15kB and less than 5MB");
+					$("#alert-msg").fadeIn("slow");
+			        $("#alert-msg").delay(2000).fadeOut(1000);
 			    	return;
 			  }
+			  else {
+				  $('#imgActionBtns').show();
+			      $('#upload').show();
+			  
 		    	var reader = new FileReader();
 		   		reader.onload = function (evt) {
 		      var img = new Image();
@@ -403,7 +417,9 @@ label {
 		      img.src = evt.target.result;
 		    };
 		    reader.readAsDataURL(this.files[0]);
-		  } else {
+		  } 
+		  }
+		  else {
 		    alert("No file(s) selected.");
 		  }
 		});
@@ -416,7 +432,7 @@ label {
 			event.preventDefault();
 			var dataURI =  $('#uploadImg').attr('src');
 			var preferredNameUpload = $('#preferredNameId').val(); 
-			console.log("on Click of upload"+ dataURI);
+			//console.log("on Click of upload"+ dataURI);
 			var data = {
 					signImg : dataURI,
 					uploadType : 'upload',
