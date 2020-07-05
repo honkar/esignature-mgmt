@@ -43,18 +43,20 @@ public class SignatureServiceImpl implements SignatureService{
 	public void saveDBSignature(String fileName, int signatureType, String preferredName){
 		UserSessionDto user = (UserSessionDto) session.getAttribute("userDetails");
 		try {
-			
+			// Get latest user signature 
 			Signature latestSignature = findSignatureByUserIdAndStatus(user.getId(), SignatureController.ACTIVE_SIGNATURE);
 			Signature sign = new Signature();
 			sign.setFileName(fileName);
 			sign.setStatus(SignatureController.ACTIVE_SIGNATURE);
 			
+			// Set signature type
 			if (signatureType == SignatureController.UPLOAD_SIGNATURE) {
 				sign.setType(SignatureController.UPLOAD_SIGNATURE);
 			} else {
 				sign.setType(SignatureController.DRAW_SIGNATURE);
 			}
 			
+			// Set user Id
 			sign.setUserId(user.getId()); 
 			if (latestSignature != null ) {
 				int version = latestSignature.getVersion() + 1;

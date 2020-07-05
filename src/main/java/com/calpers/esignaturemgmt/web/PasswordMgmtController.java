@@ -45,6 +45,11 @@ public class PasswordMgmtController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
+	/**
+	 * Change Password
+	 * @param pwdObj
+	 * @return
+	 */
 	@RequestMapping(value = "/changepwd", method = RequestMethod.POST)
 	public ResponseEntity<Object> changePassword(@RequestBody PwdAjax pwdObj) {
 		UserSessionDto userObj = (UserSessionDto) session.getAttribute("userDetails");
@@ -59,6 +64,12 @@ public class PasswordMgmtController {
 		return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 	}
 
+	
+	/**
+	 * Reset Password
+	 * @param emailObj
+	 * @return
+	 */
 	@RequestMapping(value = "/resetpwd", method = RequestMethod.POST)
 	public ResponseEntity<Object> resetPassword(@RequestBody EmailAjax emailObj) {
 		User existing = userService.findByEmail(emailObj.getEmail());
@@ -75,6 +86,12 @@ public class PasswordMgmtController {
 		return new ResponseEntity<>("Error", HttpStatus.BAD_REQUEST);
 	}
 
+	/**
+	 * Reset Password
+	 * @param pwdDto
+	 * @param result
+	 * @return
+	 */
 	@RequestMapping(value = "/resetpassword", method = { RequestMethod.POST })
 	public ResponseEntity<Object> resetPassword(@RequestBody PwdDto pwdDto, BindingResult result) {
 		User user = userService.findByEmail(pwdDto.getEmail());

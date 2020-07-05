@@ -64,7 +64,7 @@ public class RemoveBackground {
 	            public long markerRGB = color.getRGB() | 0xFF000000;
 
 	            public final int filterRGB(int x, int y, int rgb) {
-	                if ((rgb | 0xFF000000) >= markerRGB - 0xB0B0B) {  // Pixel color same or lighter than background
+	                if ((rgb | 0xFF000000) >= markerRGB - 0xF0F0F) {  // Pixel color same or lighter than background
 	                    //Set alpha bits to zero (transparent)
 	                    return 0x00FFFFFF & rgb;
 	                } else { // Pixel color darker than background 

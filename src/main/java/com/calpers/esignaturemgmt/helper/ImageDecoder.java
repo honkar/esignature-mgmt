@@ -9,10 +9,10 @@ public class ImageDecoder {
 	public static String uploadDirectory = System.getProperty("user.dir")+"/src/main/resources/static/uploads";
 
 	public boolean decodeToImage(String imageString, String fileName) {
-		// decode Base64 String to image
+		// decode Base64 String to image (signature)
 		FileOutputStream fos;
 		boolean status;
-		try {
+		try { // Save signature to 'upload' folder
 			fos = new FileOutputStream(uploadDirectory+"/"+fileName);
 			byte byteArray[] = Base64.decodeBase64(imageString);
 			fos.write(byteArray);

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.calpers.esignaturemgmt.model.ConfirmationToken;
 import com.calpers.esignaturemgmt.model.User;
 import com.calpers.esignaturemgmt.repository.ConfirmationTokenRepository;
-import com.calpers.esignaturemgmt.web.dto.UserRegistrationDto;
 
 @Service
 public class NotificationService {
@@ -27,6 +26,11 @@ public class NotificationService {
 		this.mailSender = mailSender;
 	}
 	
+	/**
+	 * Send account confirmation notification
+	 * @param user
+	 * @throws MailException
+	 */
 	public void sendNotification(User user) throws MailException {
 		ConfirmationToken confirmationToken = new ConfirmationToken(user, TOKEN_TYPE_REGISTRATION);
         confirmationTokenRepository.save(confirmationToken);
@@ -40,6 +44,11 @@ public class NotificationService {
 		
 	}
 	
+	/**
+	 * Send reset password email
+	 * @param user
+	 * @throws MailException
+	 */
 	public void resetPassword(User user) throws MailException {
 		ConfirmationToken confirmationToken = new ConfirmationToken(user,TOKEN_TYPE_RESETPWD);
         confirmationTokenRepository.save(confirmationToken);

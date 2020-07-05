@@ -24,6 +24,10 @@ public class MainController {
 	@Autowired
 	private SignatureService signatureService;
 
+	/*
+	 * If user signature added, show signature dashboard
+	 * else show Upload dashboard
+	 */
     @GetMapping("/")
     public String root(Model model) {
     	UserSessionDto user = (UserSessionDto) session.getAttribute("userDetails");
@@ -69,6 +73,10 @@ public class MainController {
 		return "dash_v4";
 	}
     
+    /*
+	 * If user signature added, show signature dashboard
+	 * else show Upload dashboard
+	 */
     @RequestMapping("/dashboard")
 	public String dashboard(Model model) {
     	UserSessionDto user = (UserSessionDto) session.getAttribute("userDetails");

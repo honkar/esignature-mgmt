@@ -55,6 +55,12 @@ public class UserRegistrationController {
 		return "signup";
 	}
 
+	/**
+	 * Register user account
+	 * @param userDto
+	 * @param result
+	 * @return
+	 */
 	@RequestMapping(value = "/registration", method = { RequestMethod.POST })
 	public String registerUserAccount(@ModelAttribute("user") @Valid UserRegistrationDto userDto,
 			BindingResult result) {
@@ -79,6 +85,12 @@ public class UserRegistrationController {
 		return "registerSuccess";
 	}
 
+	/**
+	 * Confirm user account
+	 * @param modelAndView
+	 * @param confirmationToken
+	 * @return
+	 */
 	@RequestMapping(value = "/confirm-account", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token") String confirmationToken) {
 		ConfirmationToken token = confirmationTokenRepository.findByConfirmationTokenAndTokenType(confirmationToken,TOKEN_TYPE_REGISTRATION);
@@ -98,7 +110,13 @@ public class UserRegistrationController {
 
 		return modelAndView;
 	}
-
+    
+	/**
+	 * Forgot password
+	 * @param model
+	 * @param confirmationToken
+	 * @return
+	 */
 	@RequestMapping(value = "/resetpassword", method = { RequestMethod.GET })
 	public String forgotPassword(Model model, @RequestParam("token") String confirmationToken) {
 		ConfirmationToken token = confirmationTokenRepository.findByConfirmationTokenAndTokenType(confirmationToken,TOKEN_TYPE_RESETPWD);

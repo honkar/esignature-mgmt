@@ -39,7 +39,10 @@ public class UserServiceImpl implements UserService {
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
-
+    
+	/**
+	 * Save user
+	 */
 	public User save(UserRegistrationDto registration) {
 		User user = new User();
 		user.setFirstName(registration.getFirstName());
@@ -58,6 +61,9 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(user);
 	}
 
+	/**
+	 * Get user by email id and set their details to session
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		User user = userRepository.findByEmail(email);

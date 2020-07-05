@@ -43,6 +43,11 @@ public class SignatureController {
 		
     }
 	
+	/**
+	 * Save Signature
+	 * @param signatureObject
+	 * @return
+	 */
 	@RequestMapping(value = "/saveSignature", method = RequestMethod.POST)
     public ResponseEntity<Object> saveSignature(@RequestBody SignatureAjax signatureObject) {
 		ImageDecoder imgDecoder = new ImageDecoder();
@@ -50,7 +55,7 @@ public class SignatureController {
 		UserSessionDto user = (UserSessionDto) session.getAttribute("userDetails");
 		int signatureType = DRAW_SIGNATURE;
 		
-		// Set File Name
+		// Set File Name (Signature_userId_version)
 		StringBuilder fileName = new StringBuilder();
 		fileName.append("Signature_").append(user.getId());
 		
@@ -64,11 +69,14 @@ public class SignatureController {
 		}
 		fileName.append(".png");
 	
+		// Get Signature type upload(2)/draw(1)
 		String str[] = signatureObject.getSignImg().split(",");
 		String uploadType = signatureObject.getUploadType();
 		if (uploadType.contentEquals("upload")) {
 			signatureType = UPLOAD_SIGNATURE;
 		}
+		
+		// Get preferred name if provided
 		String preferredName = signatureObject.getPreferredName();
 		if (preferredName.isBlank()) {
 			preferredName = null; 
@@ -80,6 +88,7 @@ public class SignatureController {
 		// Remove background from signature 
 		boolean removeBackgroundStatus = remBackground.removeBackground(fileName.toString());
 		
+		// Save signature to database
 		if(uploadStatus && removeBackgroundStatus) {
 			signatureService.saveDBSignature(fileName.toString(), signatureType, preferredName);
 		}

@@ -33,6 +33,11 @@ public class ProfileController {
 		return "calpers_Viewprofile";
 	}
 
+	/**
+	 * Edit Profile
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/editprofile", method = { RequestMethod.GET })
 	public String editProfile(Model model) {
 		UserSessionDto user = (UserSessionDto) session.getAttribute("userDetails");
@@ -40,6 +45,12 @@ public class ProfileController {
 		return "calpers_editprofile";
 	}
 
+	/**
+	 * Save Profile
+	 * @param userDto
+	 * @param result
+	 * @return
+	 */
 	@RequestMapping(value = "/editprofile", method = { RequestMethod.POST })
 	public String saveProfile(@ModelAttribute("editUserObj") @Valid UserSessionDto userDto, BindingResult result) {
 		UserSessionDto userObj = (UserSessionDto) session.getAttribute("userDetails");
