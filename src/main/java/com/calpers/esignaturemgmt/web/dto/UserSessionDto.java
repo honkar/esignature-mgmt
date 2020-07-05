@@ -74,7 +74,6 @@ public class UserSessionDto {
 		this.organization = user.getOrganization();
         this.userType = user.getUserType();
 		this.enabled = user.isEnabled();
-		this.signStatus = user.isSignStatus();
 		
 	}
 	public void copyFromSessionDto(User user) {

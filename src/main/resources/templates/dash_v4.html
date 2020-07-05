@@ -344,26 +344,6 @@ label {
 				
 			  });
 			});
-		// CROPPER SCRIPT
-		/*cropper.start(document.getElementById("testCanvas"), 1); // initialize cropper by providing it with a target canvas and a XY ratio (height = width * ratio)
-		
-		function handleFileSelect() {
-			// this function will be called when the file input below is changed
-			var file = document.getElementById("signatureFile").files[0];  // get a reference to the selected file
-			
-			var reader = new FileReader(); 
-			reader.onload = function(event) {
-				var data = event.target.result; // the "data url" of the image
-				cropper.showImage(data); 
-				console.log("Cropper--->"+data)
-			};
-			// this loads the file as a data url calling the function above once done
-			reader.readAsDataURL(file); 
-		
-		}
-		
-		var uploadBtn = document.getElementById('upload');
-		var myCanvas = document.getElementById("testCanvas");*/
 		
 		var canvas = $("#canvas");
 		context = canvas.get(0).getContext("2d");

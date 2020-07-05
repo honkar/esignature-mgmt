@@ -13,6 +13,8 @@ import com.calpers.esignaturemgmt.web.dto.UserRegistrationDto;
 
 @Service
 public class NotificationService {
+	public static final int TOKEN_TYPE_REGISTRATION = 1;
+	public static final int TOKEN_TYPE_RESETPWD  = 2;
 	
 	private JavaMailSender mailSender;
 	
@@ -26,7 +28,7 @@ public class NotificationService {
 	}
 	
 	public void sendNotification(User user) throws MailException {
-		ConfirmationToken confirmationToken = new ConfirmationToken(user);
+		ConfirmationToken confirmationToken = new ConfirmationToken(user, TOKEN_TYPE_REGISTRATION);
         confirmationTokenRepository.save(confirmationToken);
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setTo(user.getEmail());
@@ -39,7 +41,7 @@ public class NotificationService {
 	}
 	
 	public void resetPassword(User user) throws MailException {
-		ConfirmationToken confirmationToken = new ConfirmationToken(user);
+		ConfirmationToken confirmationToken = new ConfirmationToken(user,TOKEN_TYPE_RESETPWD);
         confirmationTokenRepository.save(confirmationToken);
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setTo(user.getEmail());

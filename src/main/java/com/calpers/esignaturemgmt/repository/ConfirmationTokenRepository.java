@@ -8,4 +8,5 @@ import com.calpers.esignaturemgmt.model.ConfirmationToken;
 @Repository
 public interface ConfirmationTokenRepository extends JpaRepository<ConfirmationToken, String> {
     ConfirmationToken findByConfirmationToken(String confirmationToken);
+    ConfirmationToken findByConfirmationTokenAndTokenType(String confirmationToken, int tokenType);    
 }

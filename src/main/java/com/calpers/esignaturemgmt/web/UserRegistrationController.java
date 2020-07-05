@@ -27,6 +27,9 @@ import com.calpers.esignaturemgmt.web.dto.UserSessionDto;
 
 @Controller
 public class UserRegistrationController {
+	
+	public static final int TOKEN_TYPE_REGISTRATION = 1;
+	public static final int TOKEN_TYPE_RESETPWD  = 2;
 
 	private Logger logger = LoggerFactory.getLogger(UserRegistrationController.class);
 
@@ -41,8 +44,6 @@ public class UserRegistrationController {
 	@Autowired
 	private NotificationService notifyService;
 
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
 
 	@ModelAttribute("user")
 	public UserRegistrationDto userRegistrationDto() {
@@ -80,7 +81,7 @@ public class UserRegistrationController {
 
 	@RequestMapping(value = "/confirm-account", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token") String confirmationToken) {
-		ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+		ConfirmationToken token = confirmationTokenRepository.findByConfirmationTokenAndTokenType(confirmationToken,TOKEN_TYPE_REGISTRATION);
 
 		if (token != null) {
 			User user = userService.findByEmail(token.getUser().getEmail());
@@ -100,7 +101,7 @@ public class UserRegistrationController {
 
 	@RequestMapping(value = "/resetpassword", method = { RequestMethod.GET })
 	public String forgotPassword(Model model, @RequestParam("token") String confirmationToken) {
-		ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+		ConfirmationToken token = confirmationTokenRepository.findByConfirmationTokenAndTokenType(confirmationToken,TOKEN_TYPE_RESETPWD);
 		if (token != null) {
 			String email = token.getUser().getEmail();
 			model.addAttribute("email",email);

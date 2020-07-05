@@ -37,12 +37,16 @@ public class ConfirmationToken {
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
     
+    // 1- for registration 2- for password reset
+    private int tokenType;
+    
     public ConfirmationToken() {
     }
 
-    public ConfirmationToken(User user) {
+    public ConfirmationToken(User user, int tokenType) {
         this.user = user;
         createdDate = new Date();
+        this.tokenType =tokenType;
         confirmationToken = UUID.randomUUID().toString();
     }
 
@@ -77,6 +81,15 @@ public class ConfirmationToken {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public int getTokenType() {
+		return tokenType;
+	}
+
+	public void setTokenType(int tokenType) {
+		this.tokenType = tokenType;
+	}
+	
 
     
 }

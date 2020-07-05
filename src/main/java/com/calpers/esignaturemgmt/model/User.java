@@ -31,7 +31,6 @@ public class User {
     // Internal - 1; External -2
     private int userType;
     private boolean enabled;
-    private boolean signStatus;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -136,15 +135,6 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-
-	public boolean isSignStatus() {
-		return signStatus;
-	}
-
-	public void setSignStatus(boolean signStatus) {
-		this.signStatus = signStatus;
-	}
-
 	
 	public int getUserType() {
 		return userType;
